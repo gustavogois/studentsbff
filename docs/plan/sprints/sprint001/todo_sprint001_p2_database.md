@@ -1,7 +1,7 @@
 # P2 — Database Schema & Entities: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B02
 **Goal:** Flyway V1 migration creates all tables; JPA entities map to them; repositories provide basic CRUD.
 

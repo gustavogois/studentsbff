@@ -1,7 +1,7 @@
 # P6 — Frontend Subjects & Dashboard: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B06 (continued)
 **Goal:** Student dashboard shows subjects; subjects page allows full CRUD; topics CRUD within each subject.
 

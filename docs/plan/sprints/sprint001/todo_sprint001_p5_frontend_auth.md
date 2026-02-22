@@ -1,7 +1,7 @@
 # P5 — Frontend Foundation & Auth: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog items:** B06 (partial), B07
 **Goal:** Frontend has routing, API client with JWT, AuthContext, ProtectedRoute, and a working "Login with Google" flow.
 
