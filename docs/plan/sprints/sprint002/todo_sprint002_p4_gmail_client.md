@@ -1,7 +1,7 @@
 # P4 — Gmail API Client (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B20 (part 3)
 **Goal:** Service that fetches recent emails from a student's Gmail using stored OAuth tokens.
 

@@ -1,7 +1,7 @@
 # P6 — School Events API & Sync Orchestration (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B20 (part 5)
 **Goal:** REST API for school events CRUD and Gmail sync orchestration that ties Gmail fetching, AI parsing, and event storage together.
 

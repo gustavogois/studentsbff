@@ -1,7 +1,7 @@
 # P1 — Student Profile (B08): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B08
 **Goal:** Student can view and edit their profile (grade and school) via backend API and frontend page.
 

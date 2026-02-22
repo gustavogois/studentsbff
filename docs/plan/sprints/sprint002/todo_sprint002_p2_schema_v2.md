@@ -1,7 +1,7 @@
 # P2 — Database Schema V2 & Entities (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B20 (part 1)
 **Goal:** Add school_events table and OAuth token columns to support Gmail integration.
 

@@ -1,7 +1,7 @@
 # P5 — LLM Provider & Email Parsing (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B20 (part 4)
 **Goal:** AI service that parses email content into structured school events using OpenAI GPT-4o, with an abstraction layer for future provider switching.
 

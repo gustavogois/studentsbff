@@ -5,30 +5,30 @@ Current sprint tasks are tracked here. Updated after each task completion.
 ## Sprint 002 — School Context
 
 ### P1 — Student Profile (B08)
-- [ ] P1.1 — Student profile backend (service + DTOs + controller)
-- [ ] P1.2 — Student profile frontend (page + navigation)
+- [x] P1.1 — Student profile backend (service + DTOs + controller)
+- [x] P1.2 — Student profile frontend (page + navigation)
 
 ### P2 — Database Schema V2 & Entities (B20)
-- [ ] P2.1 — Flyway V2 migration (school_events table + OAuth token columns)
-- [ ] P2.2 — SchoolEvent entity, enums, repository + User token fields
+- [x] P2.1 — Flyway V2 migration (school_events table + OAuth token columns)
+- [x] P2.2 — SchoolEvent entity, enums, repository + User token fields
 
 ### P3 — OAuth Token Persistence & Gmail Scope (B20)
-- [ ] P3.1 — Persist Google OAuth tokens and add Gmail scope
+- [x] P3.1 — Persist Google OAuth tokens and add Gmail scope
 
 ### P4 — Gmail API Client (B20)
-- [ ] P4.1 — Gmail service to fetch emails
+- [x] P4.1 — Gmail service to fetch emails
 
 ### P5 — LLM Provider & Email Parsing (B20)
-- [ ] P5.1 — LLMProvider interface and OpenAI implementation
-- [ ] P5.2 — Email parsing service with AI extraction
+- [x] P5.1 — LLMProvider interface and OpenAI implementation
+- [x] P5.2 — Email parsing service with AI extraction
 
 ### P6 — School Events API & Sync (B20)
-- [ ] P6.1 — SchoolEvent service and DTOs
-- [ ] P6.2 — Gmail sync orchestration and school events API endpoints
+- [x] P6.1 — SchoolEvent service and DTOs
+- [x] P6.2 — Gmail sync orchestration and school events API endpoints
 
 ### P7 — Frontend Events (B20)
-- [ ] P7.1 — School event types and API services
-- [ ] P7.2 — School events page with Gmail sync UI
+- [x] P7.1 — School event types and API services
+- [x] P7.2 — School events page with Gmail sync UI
 
 ---
 

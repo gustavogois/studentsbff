@@ -1,7 +1,7 @@
 # P7 — Frontend Events (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B20 (part 6)
 **Goal:** Frontend pages for triggering Gmail sync and viewing/managing extracted school events.
 
