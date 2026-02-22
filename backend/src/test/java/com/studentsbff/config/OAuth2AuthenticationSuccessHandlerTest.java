@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.studentsbff.model.Role;
 import com.studentsbff.model.User;
 import com.studentsbff.service.JwtService;
+import com.studentsbff.service.OAuth2TokenService;
 import com.studentsbff.service.UserService;
 import java.util.Map;
 import java.util.UUID;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
@@ -32,6 +34,12 @@ class OAuth2AuthenticationSuccessHandlerTest {
     private JwtService jwtService;
 
     @Mock
+    private OAuth2TokenService oAuth2TokenService;
+
+    @Mock
+    private OAuth2AuthorizedClientService authorizedClientService;
+
+    @Mock
     private Authentication authentication;
 
     private OAuth2AuthenticationSuccessHandler handler;
@@ -39,7 +47,13 @@ class OAuth2AuthenticationSuccessHandlerTest {
 
     @BeforeEach
     void setUp() {
-        handler = new OAuth2AuthenticationSuccessHandler(userService, jwtService, FRONTEND_URL);
+        handler =
+                new OAuth2AuthenticationSuccessHandler(
+                        userService,
+                        jwtService,
+                        oAuth2TokenService,
+                        authorizedClientService,
+                        FRONTEND_URL);
     }
 
     private User createTestUser() {
@@ -66,7 +80,8 @@ class OAuth2AuthenticationSuccessHandlerTest {
 
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         User user = createTestUser();
-        when(userService.findOrCreateOAuthUser("new@example.com", "New User", "https://example.com/pic.jpg"))
+        when(userService.findOrCreateOAuthUser(
+                        "new@example.com", "New User", "https://example.com/pic.jpg"))
                 .thenReturn(user);
         when(jwtService.generateToken(user)).thenReturn("jwt-token");
 
@@ -75,7 +90,9 @@ class OAuth2AuthenticationSuccessHandlerTest {
 
         handler.onAuthenticationSuccess(request, response, authentication);
 
-        verify(userService).findOrCreateOAuthUser("new@example.com", "New User", "https://example.com/pic.jpg");
+        verify(userService)
+                .findOrCreateOAuthUser(
+                        "new@example.com", "New User", "https://example.com/pic.jpg");
         assertThat(response.getRedirectedUrl())
                 .isEqualTo(FRONTEND_URL + "/oauth/callback?token=jwt-token");
     }
@@ -95,7 +112,9 @@ class OAuth2AuthenticationSuccessHandlerTest {
         when(authentication.getPrincipal()).thenReturn(oAuth2User);
         User existingUser = createTestUser();
         when(userService.findOrCreateOAuthUser(
-                        "existing@example.com", "Existing User", "https://example.com/avatar.jpg"))
+                        "existing@example.com",
+                        "Existing User",
+                        "https://example.com/avatar.jpg"))
                 .thenReturn(existingUser);
         when(jwtService.generateToken(existingUser)).thenReturn("jwt-token-existing");
 
@@ -106,7 +125,9 @@ class OAuth2AuthenticationSuccessHandlerTest {
 
         verify(userService)
                 .findOrCreateOAuthUser(
-                        "existing@example.com", "Existing User", "https://example.com/avatar.jpg");
+                        "existing@example.com",
+                        "Existing User",
+                        "https://example.com/avatar.jpg");
     }
 
     @Test
