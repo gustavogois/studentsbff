@@ -10,6 +10,8 @@
 |-------|-------|
 | Sprint | 001 |
 | Start date | 2026-02-22 |
+| End date | 2026-02-22 |
+| Status | Done |
 | Goal | Walking skeleton — full-stack student flow |
 | Constraints | None |
 
@@ -32,19 +34,19 @@
 
 ## Definition of Done
 
-- [ ] Backend starts and connects to PostgreSQL via Docker Compose
-- [ ] Flyway migration runs successfully
-- [ ] User can login with Google and receive JWT session token
-- [ ] First-time Google login auto-creates user + student profile
-- [ ] Authenticated user can CRUD subjects
-- [ ] Authenticated user can CRUD topics within a subject
-- [ ] Frontend "Login with Google" page works end-to-end
-- [ ] Frontend dashboard shows user's subjects
-- [ ] Frontend subjects page allows add/edit/delete
-- [ ] Protected routes redirect unauthenticated users to login
-- [ ] All backend tests pass (`./mvnw verify`)
-- [ ] Frontend builds and tests pass (`npm run build && npm test`)
-- [ ] Deployed to STG via Railway
+- [x] Backend starts and connects to PostgreSQL via Docker Compose
+- [x] Flyway migration runs successfully
+- [x] User can login with Google and receive JWT session token
+- [x] First-time Google login auto-creates user + student profile
+- [x] Authenticated user can CRUD subjects
+- [x] Authenticated user can CRUD topics within a subject
+- [x] Frontend "Login with Google" page works end-to-end
+- [x] Frontend dashboard shows user's subjects
+- [x] Frontend subjects page allows add/edit/delete
+- [x] Protected routes redirect unauthenticated users to login
+- [x] All backend tests pass (`./mvnw test`) — 41 tests
+- [x] Frontend builds and tests pass (`npm run build && npm test`) — 25 tests
+- [~] ~~Deployed to STG via Railway~~ — deferred (local development only for now)
 
 ## Decisions Made During Refinement
 

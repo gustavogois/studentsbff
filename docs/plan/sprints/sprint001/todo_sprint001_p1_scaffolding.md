@@ -1,7 +1,7 @@
 # P1 — Project Scaffolding: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B01
 **Goal:** Both backend (Spring Boot 3 + Maven) and frontend (React 19 + Vite) projects compile, start, and pass a smoke test.
 

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Maven Wrapper script - delegates to system Maven
+# This is a simplified wrapper for development use
+exec mvn "$@"

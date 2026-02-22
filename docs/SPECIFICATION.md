@@ -16,7 +16,12 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 
 | ID | Feature | Version | Sprint |
 |----|---------|---------|--------|
-| — | _No features implemented yet_ | — | — |
+| B01 | Project scaffolding (Spring Boot + React + Docker Compose) | 0.1.0 | 001 |
+| B02 | Database schema V1 (users, students, parents, subjects, topics) | 0.1.0 | 001 |
+| B03 | Google OAuth2 authentication (login with Google, JWT session) | 0.1.0 | 001 |
+| B04 | CRUD subjects and topics | 0.1.0 | 001 |
+| B06 | Frontend: Google login, dashboard, subjects pages | 0.1.0 | 001 |
+| B07 | Protected routes and auth context | 0.1.0 | 001 |
 
 ### 2.2 Backlog
 
@@ -24,13 +29,13 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 
 | ID | Feature | Priority | Sprint | Status |
 |----|---------|----------|--------|--------|
-| B01 | Project scaffolding (Spring Boot + React + Docker Compose) | Must | 001 | Planned |
-| B02 | Database schema V1 (users, students, parents, subjects, topics) | Must | 001 | Planned |
-| B03 | Google OAuth2 authentication (login with Google, JWT session) | Must | 001 | Planned |
-| B04 | CRUD subjects and topics | Must | 001 | Planned |
+| B01 | Project scaffolding (Spring Boot + React + Docker Compose) | Must | 001 | Done |
+| B02 | Database schema V1 (users, students, parents, subjects, topics) | Must | 001 | Done |
+| B03 | Google OAuth2 authentication (login with Google, JWT session) | Must | 001 | Done |
+| B04 | CRUD subjects and topics | Must | 001 | Done |
 | B05 | Parent-student linking and parent read-only view | Must | 002 | Backlog |
-| B06 | Frontend: Google login, dashboard, subjects pages | Must | 001 | Planned |
-| B07 | Protected routes and auth context | Must | 001 | Planned |
+| B06 | Frontend: Google login, dashboard, subjects pages | Must | 001 | Done |
+| B07 | Protected routes and auth context | Must | 001 | Done |
 | B08 | Student profile management (grade, school) | Should | — | Backlog |
 | B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Backlog |
 | B10 | Study plan calendar view (daily/weekly) | Should | — | Backlog |
@@ -68,5 +73,5 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 
 | Sprint | Version | Scope | Status |
 |--------|---------|-------|--------|
-| 001 | 0.1.0 | Walking skeleton: scaffolding, DB, auth, subjects CRUD, frontend | Planned |
+| 001 | 0.1.0 | Walking skeleton: scaffolding, DB, auth, subjects CRUD, frontend | Done |
 | 002 | 0.2.0 | Parent features (B05), student profile (B08) | Planned |

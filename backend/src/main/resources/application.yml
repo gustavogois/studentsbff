@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: studentsbff
+  profiles:
+    active: dev
+
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

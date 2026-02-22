@@ -1,7 +1,7 @@
 # P3 — Google OAuth2 Authentication: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B03
 **Goal:** User can login with Google; backend issues JWT session token; first-time login auto-creates user + student profile.
 

@@ -111,7 +111,7 @@ erDiagram
 
 | Version | File | Description |
 |---------|------|-------------|
-| V1 | `V1__initial_schema.sql` | Creates all 5 tables (planned) |
+| V1 | `V1__initial_schema.sql` | Creates all 5 tables |
 
 ## API Response Conventions
 

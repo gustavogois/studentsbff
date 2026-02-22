@@ -1,7 +1,7 @@
 # P4 — CRUD Subjects & Topics: Implementation Plan
 
 **Sprint:** 001
-**Status:** Not Started
+**Status:** Done
 **Backlog item:** B04
 **Goal:** Authenticated student can create, read, update, and delete subjects and topics. Ownership validation ensures students only access their own data.
 
