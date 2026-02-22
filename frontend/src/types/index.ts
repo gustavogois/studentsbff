@@ -41,3 +41,25 @@ export interface StudentProfileRequest {
   grade: string;
   school: string;
 }
+
+export interface SchoolEvent {
+  id: string;
+  title: string;
+  eventType: "EXAM" | "ASSIGNMENT" | "DEADLINE" | "OTHER";
+  subjectId: string | null;
+  subjectName: string | null;
+  description: string;
+  eventDate: string;
+  source: "GMAIL" | "MANUAL";
+  createdAt: string;
+}
+
+export interface GmailSyncResult {
+  newEventsCount: number;
+  skippedDuplicates: number;
+  totalEmails: number;
+}
+
+export interface GmailSyncRequest {
+  daysBack?: number;
+}
