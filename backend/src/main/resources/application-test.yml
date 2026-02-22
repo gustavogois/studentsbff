@@ -24,3 +24,11 @@ jwt:
 
 frontend:
   url: http://localhost:5173
+
+openai:
+  api-key: test-api-key
+  model: gpt-4o
+  max-tokens: 2000
+
+gmail:
+  max-messages: 50
