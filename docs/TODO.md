@@ -2,7 +2,29 @@
 
 Current sprint tasks are tracked here. Updated after each task completion.
 
-## Sprint 001 — Walking Skeleton
+## Sprint 002 — School Context
+
+> Tasks will be broken down by `/plan-sprint-tasks`. High-level items below.
+
+### B08 — Student Profile Management
+- [ ] Backend: student profile API (GET + PUT /api/students/profile)
+- [ ] Frontend: profile page with grade and school edit form
+
+### B20 — Gmail Integration with AI Parsing
+- [ ] OAuth2 scope expansion (add Gmail read scope, persist tokens)
+- [ ] School events data model (Flyway V2 migration + JPA entities)
+- [ ] Gmail API client service (fetch emails with stored tokens)
+- [ ] LLMProvider interface + OpenAI GPT-4o implementation
+- [ ] Email parsing service (extract school events via AI)
+- [ ] API endpoints (sync Gmail, list events, delete event)
+- [ ] Frontend: Gmail sync button and school events list
+
+---
+
+## Sprint 001 — Walking Skeleton (Done)
+
+<details>
+<summary>All 21 tasks completed</summary>
 
 ### P1 — Project Scaffolding (B01)
 - [x] P1.1 — Backend Maven project with Spring Boot 3
@@ -36,3 +58,5 @@ Current sprint tasks are tracked here. Updated after each task completion.
 - [x] P6.2 — Dashboard page and SubjectCard
 - [x] P6.3 — Subjects page with CRUD
 - [x] P6.4 — Subject detail page with topics CRUD
+
+</details>
