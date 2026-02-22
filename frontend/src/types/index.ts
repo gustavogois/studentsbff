@@ -29,3 +29,15 @@ export interface TopicRequest {
   name: string;
   difficulty?: number;
 }
+
+export interface StudentProfile {
+  id: string;
+  grade: string | null;
+  school: string | null;
+  createdAt: string;
+}
+
+export interface StudentProfileRequest {
+  grade: string;
+  school: string;
+}

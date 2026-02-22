@@ -28,6 +28,12 @@ export default function Layout() {
               >
                 Subjects
               </Link>
+              <Link
+                to="/profile"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                Profile
+              </Link>
             </div>
             <div className="flex items-center gap-4">
               {user?.avatarUrl && (
