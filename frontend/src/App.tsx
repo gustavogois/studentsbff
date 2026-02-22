@@ -8,6 +8,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SubjectsPage from "./pages/SubjectsPage";
 import SubjectDetailPage from "./pages/SubjectDetailPage";
 import ProfilePage from "./pages/ProfilePage";
+import SchoolEventsPage from "./pages/SchoolEventsPage";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/subjects" element={<SubjectsPage />} />
               <Route path="/subjects/:id" element={<SubjectDetailPage />} />
+              <Route path="/events" element={<SchoolEventsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Route>
