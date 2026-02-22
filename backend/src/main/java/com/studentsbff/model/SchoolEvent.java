@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -22,36 +24,40 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "school_events")
+public class SchoolEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(nullable = false)
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private Student student;
 
-    @Column(nullable = false, unique = true)
-    private String email;
+    @Column(nullable = false, length = 500)
+    private String title;
 
-    private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "event_type", nullable = false, length = 20)
+    private EventType eventType;
+
+    @ManyToOne
+    @JoinColumn(name = "subject_id")
+    private Subject subject;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
+
+    @Column(name = "event_date", nullable = false)
+    private Instant eventDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Role role;
+    private EventSource source;
 
-    @Column(name = "avatar_url", length = 500)
-    private String avatarUrl;
-
-    @Column(name = "google_access_token", columnDefinition = "TEXT")
-    private String googleAccessToken;
-
-    @Column(name = "google_refresh_token", columnDefinition = "TEXT")
-    private String googleRefreshToken;
-
-    @Column(name = "google_token_expiry")
-    private Instant googleTokenExpiry;
+    @Column(name = "source_email_id")
+    private String sourceEmailId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
