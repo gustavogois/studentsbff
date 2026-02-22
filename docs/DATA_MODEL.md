@@ -62,7 +62,7 @@ erDiagram
 | id | UUID | PK, default gen_random_uuid() | Unique identifier |
 | name | VARCHAR(255) | NOT NULL | Display name |
 | email | VARCHAR(255) | NOT NULL, UNIQUE | Login email |
-| password | VARCHAR(255) | NOT NULL | BCrypt hash |
+| password | VARCHAR(255) | nullable | BCrypt hash (null for OAuth-only users) |
 | role | VARCHAR(20) | NOT NULL, CHECK (STUDENT, PARENT) | User role |
 | avatar_url | VARCHAR(500) | nullable | Profile picture URL |
 | created_at | TIMESTAMP | NOT NULL, default now() | Record creation |

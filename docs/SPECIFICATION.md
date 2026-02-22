@@ -20,30 +20,30 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 
 ### 2.2 Backlog
 
-> **Note:** These are initial proposals derived from the implementation plan and user research. Priorities and scope will be validated during the first `/refinement` session.
+> Validated during refinement session on 2026-02-22.
 
 | ID | Feature | Priority | Sprint | Status |
 |----|---------|----------|--------|--------|
-| B01 | Project scaffolding (Spring Boot + React + Docker Compose) | Must | — | Proposed |
-| B02 | Database schema V1 (users, students, parents, subjects, topics) | Must | — | Proposed |
-| B03 | JWT authentication (register + login) | Must | — | Proposed |
-| B04 | CRUD subjects and topics | Must | — | Proposed |
-| B05 | Parent-student linking and parent read-only view | Must | — | Proposed |
-| B06 | Frontend: login, register, dashboard, subjects pages | Must | — | Proposed |
-| B07 | Protected routes and auth context | Must | — | Proposed |
-| B08 | Student profile management (grade, school) | Should | — | Proposed |
-| B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Proposed |
-| B10 | Study plan calendar view (daily/weekly) | Should | — | Proposed |
-| B11 | Manual data entry (exams, assignments, deadlines) | Must | — | Proposed |
-| B12 | Spaced repetition review system | Should | — | Proposed |
-| B13 | AI chat tutor (contextual Q&A per subject/topic) | Should | — | Proposed |
-| B14 | Mind map generation for topics | Could | — | Proposed |
-| B15 | Parent dashboard (progress, grades, study time) | Should | — | Proposed |
-| B16 | Notification system (study reminders, parent alerts) | Could | — | Proposed |
-| B17 | Gamification (points, streaks, achievements) | Could | — | Proposed |
-| B18 | PWA offline mode | Could | — | Proposed |
-| B19 | Photo/OCR data capture (agenda, notebook) | Could | — | Proposed |
-| B20 | Gmail integration for school email parsing | Could | — | Proposed |
+| B01 | Project scaffolding (Spring Boot + React + Docker Compose) | Must | 001 | Planned |
+| B02 | Database schema V1 (users, students, parents, subjects, topics) | Must | 001 | Planned |
+| B03 | Google OAuth2 authentication (login with Google, JWT session) | Must | 001 | Planned |
+| B04 | CRUD subjects and topics | Must | 001 | Planned |
+| B05 | Parent-student linking and parent read-only view | Must | 002 | Backlog |
+| B06 | Frontend: Google login, dashboard, subjects pages | Must | 001 | Planned |
+| B07 | Protected routes and auth context | Must | 001 | Planned |
+| B08 | Student profile management (grade, school) | Should | — | Backlog |
+| B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Backlog |
+| B10 | Study plan calendar view (daily/weekly) | Should | — | Backlog |
+| B11 | Manual data entry (exams, assignments, deadlines) | Must | — | Backlog |
+| B12 | Spaced repetition review system | Should | — | Backlog |
+| B13 | AI chat tutor (contextual Q&A per subject/topic) | Should | — | Backlog |
+| B14 | Mind map generation for topics | Could | — | Backlog |
+| B15 | Parent dashboard (progress, grades, study time) | Should | — | Backlog |
+| B16 | Notification system (study reminders, parent alerts) | Could | — | Backlog |
+| B17 | Gamification (points, streaks, achievements) | Could | — | Backlog |
+| B18 | PWA offline mode | Could | — | Backlog |
+| B19 | Photo/OCR data capture (agenda, notebook) | Could | — | Backlog |
+| B20 | Gmail integration for school email parsing | Could | — | Backlog |
 
 ---
 
@@ -55,7 +55,7 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | NF02 | AI response time | < 5s for study plan generation |
 | NF03 | Uptime | 99.5% (Railway SLA) |
 | NF04 | Mobile responsiveness | PWA works on screens >= 320px |
-| NF05 | Security | OWASP Top 10 compliance, bcrypt passwords, JWT tokens |
+| NF05 | Security | OWASP Top 10 compliance, Google OAuth2, JWT session tokens |
 | NF06 | Data privacy | Student data encrypted at rest (PostgreSQL), HTTPS in transit |
 | NF07 | Browser support | Chrome, Safari, Firefox (latest 2 versions) |
 | NF08 | Accessibility | WCAG 2.1 AA for core flows |
@@ -68,4 +68,5 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 
 | Sprint | Version | Scope | Status |
 |--------|---------|-------|--------|
-| — | _No releases yet_ | — | — |
+| 001 | 0.1.0 | Walking skeleton: scaffolding, DB, auth, subjects CRUD, frontend | Planned |
+| 002 | 0.2.0 | Parent features (B05), student profile (B08) | Planned |
