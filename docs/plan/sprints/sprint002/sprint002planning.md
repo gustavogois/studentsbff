@@ -111,6 +111,51 @@ This is the larger feature, touching multiple layers:
 7. **No external deadlines** — work at natural pace
 8. **Sprint version: 0.2.0**
 
+## Task Breakdown
+
+7 phases, 12 tasks total. See individual task files for TDD details.
+
+| Phase | File | Tasks | Scope |
+|-------|------|-------|-------|
+| P1 | `todo_sprint002_p1_student_profile.md` | P1.1, P1.2 | Student profile backend + frontend (B08) |
+| P2 | `todo_sprint002_p2_schema_v2.md` | P2.1, P2.2 | Flyway V2 migration + SchoolEvent entity (B20) |
+| P3 | `todo_sprint002_p3_oauth_tokens.md` | P3.1 | OAuth token persistence + Gmail scope (B20) |
+| P4 | `todo_sprint002_p4_gmail_client.md` | P4.1 | Gmail API client service (B20) |
+| P5 | `todo_sprint002_p5_llm_parsing.md` | P5.1, P5.2 | LLMProvider + email parsing (B20) |
+| P6 | `todo_sprint002_p6_events_api.md` | P6.1, P6.2 | School events API + sync orchestration (B20) |
+| P7 | `todo_sprint002_p7_frontend_events.md` | P7.1, P7.2 | Frontend events page + Gmail sync UI (B20) |
+
+## Global Execution Order
+
+```
+P1.1 → P1.2    (B08 — independent, can start immediately)
+P2.1 → P2.2    (B20 — DB foundation)
+       P3.1    (depends on P2.2)
+       P4.1    (depends on P3.1)
+P5.1 → P5.2    (depends on P4.1 for EmailMessage DTO)
+P6.1 → P6.2    (depends on P2.2 + P4.1 + P5.2)
+P7.1 → P7.2    (depends on P1.1 + P6.2 for all APIs)
+```
+
+**Parallelization opportunity:** P1 (profile) and P2 (schema) are independent and can run in parallel.
+
+## Commit Plan (12 commits)
+
+| Order | Commit message | Phase |
+|-------|---------------|-------|
+| 1 | `feat(sprint002): P1.1 — add student profile backend API` | P1 |
+| 2 | `feat(sprint002): P2.1 — add Flyway V2 migration for school events and OAuth tokens` | P2 |
+| 3 | `feat(sprint002): P2.2 — add SchoolEvent entity and update User with OAuth token fields` | P2 |
+| 4 | `feat(sprint002): P1.2 — add student profile frontend page` | P1 |
+| 5 | `feat(sprint002): P3.1 — persist Google OAuth tokens and add Gmail scope` | P3 |
+| 6 | `feat(sprint002): P4.1 — add Gmail API client service` | P4 |
+| 7 | `feat(sprint002): P5.1 — add LLMProvider interface and OpenAI implementation` | P5 |
+| 8 | `feat(sprint002): P5.2 — add email parsing service with AI extraction` | P5 |
+| 9 | `feat(sprint002): P6.1 — add SchoolEvent service and DTOs` | P6 |
+| 10 | `feat(sprint002): P6.2 — add Gmail sync orchestration and school events API` | P6 |
+| 11 | `feat(sprint002): P7.1 — add school event types and API services` | P7 |
+| 12 | `feat(sprint002): P7.2 — add school events page with Gmail sync UI` | P7 |
+
 ## Next Step
 
-Run `/plan-sprint-tasks` to break these items into concrete TDD tasks with execution order.
+Run `/implement-task` to start implementing tasks following the TDD loop.
