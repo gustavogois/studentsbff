@@ -23,7 +23,7 @@ jwt:
   expiration: 3600000
 
 frontend:
-  url: http://localhost:5173
+  url: http://localhost:5174
 
 openai:
   api-key: test-api-key

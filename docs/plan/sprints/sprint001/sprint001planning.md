@@ -10,6 +10,8 @@
 |-------|-------|
 | Sprint | 001 |
 | Start date | 2026-02-22 |
+| End date | 2026-02-22 |
+| Status | Done |
 | Goal | Walking skeleton — full-stack student flow |
 | Constraints | None |
 
@@ -44,7 +46,7 @@
 - [x] Protected routes redirect unauthenticated users to login
 - [x] All backend tests pass (`./mvnw test`) — 41 tests
 - [x] Frontend builds and tests pass (`npm run build && npm test`) — 25 tests
-- [ ] Deployed to STG via Railway
+- [~] ~~Deployed to STG via Railway~~ — deferred (local development only for now)
 
 ## Decisions Made During Refinement
 

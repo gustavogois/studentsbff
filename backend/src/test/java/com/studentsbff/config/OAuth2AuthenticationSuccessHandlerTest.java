@@ -43,7 +43,7 @@ class OAuth2AuthenticationSuccessHandlerTest {
     private Authentication authentication;
 
     private OAuth2AuthenticationSuccessHandler handler;
-    private static final String FRONTEND_URL = "http://localhost:5173";
+    private static final String FRONTEND_URL = "http://localhost:5174";
 
     @BeforeEach
     void setUp() {
