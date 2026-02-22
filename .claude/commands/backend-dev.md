@@ -79,7 +79,7 @@ log.error("Study plan generation failed for student '{}'", studentId, e);
 - Do not document Lombok-generated methods — document the fields instead
 
 ## Build Commands
-- Full check: `cd backend && ./gradlew check`
-- Run app: `cd backend && ./gradlew bootRun`
-- Compile only: `cd backend && ./gradlew compileJava`
-- Run specific test: `cd backend && ./gradlew test --tests "*ServiceTest"`
+- Full check: `cd backend && ./mvnw verify`
+- Run app: `cd backend && ./mvnw spring-boot:run`
+- Compile only: `cd backend && ./mvnw compile -q`
+- Run specific test: `cd backend && ./mvnw test -Dtest="*ServiceTest"`

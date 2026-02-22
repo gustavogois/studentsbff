@@ -26,10 +26,10 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'gradle'
+          cache: 'maven'
 
       - name: Run tests
-        run: ./gradlew check
+        run: ./mvnw verify
         working-directory: backend
 
       - name: Upload test report
@@ -37,5 +37,5 @@ jobs:
         if: always()
         with:
           name: test-report
-          path: backend/build/reports/tests/
+          path: backend/target/surefire-reports/
           retention-days: 7

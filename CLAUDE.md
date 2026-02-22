@@ -6,12 +6,12 @@ All code, comments, documentation, commit messages, and generated files must be 
 StudentsBFF (Best Friend Forever) — study companion platform for middle school students.
 
 ## Tech Stack
-- **Backend:** Spring Boot 3 + Java 21 + Gradle (Kotlin DSL) + JPA/Hibernate + MapStruct + Jackson + PostgreSQL
+- **Backend:** Spring Boot 3 + Java 21 + Maven + JPA/Hibernate + MapStruct + Jackson + PostgreSQL
 - **Frontend:** React 19 + TypeScript + Vite + Tailwind CSS + PWA
 - **Database:** PostgreSQL 16 (Docker Compose for local dev)
 - **AI (initial):** OpenAI API (GPT-4o)
 - **AI (future):** Abstraction for multiple providers (Anthropic Claude, etc.)
-- Always run existing tests after backend changes (`cd backend && ./gradlew check`) and verify frontend builds (`cd frontend && npm run build`)
+- Always run existing tests after backend changes (`cd backend && ./mvnw verify`) and verify frontend builds (`cd frontend && npm run build`)
 
 ## Project Structure
 - `backend/` — Spring Boot REST API
@@ -40,7 +40,7 @@ Always read `README.md` first when you need to understand the project structure 
 
 ### Auto-format hook (PostToolUse)
 After every `Edit` or `Write` tool call, `scripts/format-hook.sh` runs automatically:
-- **Java files:** `spotlessApply` (auto-fixes style) → `gradlew compileJava` (surfaces real compile errors)
+- **Java files:** `spotless:apply` (auto-fixes style) → `mvnw compile` (surfaces real compile errors)
 - **TS/TSX/CSS/JSON files:** `npx prettier --write` (auto-fixes formatting)
 
 The format step uses `|| true` (transient issues are auto-fixed), but the compile step does **not** — compile errors are real and must be visible.
@@ -54,7 +54,7 @@ Before every `Bash` tool call, staged and unstaged files are printed so you can 
 
 ## Development
 - Start DB: `docker compose up -d`
-- Start backend: `cd backend && ./gradlew bootRun`
+- Start backend: `cd backend && ./mvnw spring-boot:run`
 - Start frontend: `cd frontend && npm run dev`
 
 ## Git Workflow & Conventions
@@ -79,8 +79,9 @@ Before every `Bash` tool call, staged and unstaged files are printed so you can 
 
 ## Tool Integration
 - **Always check for existing automation** (skills, scripts, MCP servers) before starting manual work
-- Available skills: `/refinement`, `/git-conventions`, `/plan-sprint-tasks`, `/implement-task`, `/backend-dev`, `/frontend-dev`, `/test-backend`, `/finishSprint`
-- Available headless scripts: `scripts/run-sprint.sh`, `scripts/implement-task.sh`, `scripts/parallel-feature.sh`, `scripts/pre-pr-check.sh`, `scripts/format-hook.sh`
+- Available skills: `/refinement`, `/git-conventions`, `/plan-sprint-tasks`, `/implement-task`, `/backend-dev`, `/frontend-dev`, `/test-backend`, `/finishSprint`, `/deploySTG`, `/deployPRD`
+- Available headless scripts: `scripts/run-sprint.sh`, `scripts/implement-task.sh`, `scripts/parallel-feature.sh`, `scripts/pre-pr-check.sh`, `scripts/sync-sprint-docs.sh`, `scripts/update-todos.sh`, `scripts/pre-deploy-validate.sh`, `scripts/format-hook.sh`
+- Proactively integrate new external tools the project depends on (install CLI, add MCP server, create wrapper script)
 
 ## Parallel Agents for Full-Stack Features
 When a task involves **both backend and frontend** changes with a clear API contract, use parallel sub-agents to implement them simultaneously.
@@ -99,22 +100,44 @@ When a task involves **both backend and frontend** changes with a clear API cont
 1. **Define the API contract first** — URL, method, request body, response shape
 2. **Launch two Task agents in parallel** (backend + frontend)
 3. **Review & integrate** — check for contract mismatches
-4. **Test** — Run full test suite: `cd backend && ./gradlew check && cd ../frontend && npm run build && npm test`
+4. **Test** — Run full test suite: `cd backend && ./mvnw verify && cd ../frontend && npm run build && npm test`
 
 ## Testing Workflow
 - **Run tests proactively.** After writing or changing code, run the relevant tests immediately to verify correctness.
 - Follow **TDD**: write tests first, watch them fail, then implement until they pass.
-- Backend: `cd backend && ./gradlew check`
+- Backend: `cd backend && ./mvnw verify`
 - Frontend: `cd frontend && npm test`
 
 ## Implementation Loop (Test-Gated)
 When implementing tasks, follow this strict loop for **each task**:
 1. **Read & Study Patterns** — Read the task spec AND at least one existing example of the same kind
 2. **Implement** — Make changes across all necessary files
-3. **Test** — Run `cd backend && ./gradlew check` and `cd frontend && npm run build && npm test`
+3. **Test** — Run `cd backend && ./mvnw verify` and `cd frontend && npm run build && npm test`
 4. **Fix** — If any test/build fails, analyze and fix. Repeat until green. **Never commit red code.**
 5. **Doc** — Update TODO.md, sprint doc, and SPECIFICATION.md if behavior changed
 6. **Commit** — Stage ALL changed files, commit with conventional format
 7. **Next** — Move to the next task
 
 **Stop and ask the user** if you encounter: a design ambiguity with multiple valid approaches, a failing test you cannot resolve after 2 attempts, or a task that requires changing the data model or public API contract.
+
+## Pre-Deployment Validation
+Before any deployment (STG or PRD), run the pre-deployment validation checklist. This is **mandatory** — never deploy without passing all blocker-level checks.
+
+### Validation checks (in order)
+1. **Tests green** — `cd backend && ./mvnw verify` and `cd frontend && npm run build && npm test`
+2. **CORS <-> Frontend URL** — Verify `frontend.url` in `application-prod.yml` matches the actual frontend domain. Check that `SecurityConfig.java` and `WebConfig.java` use this value for CORS allowed origins
+3. **OAuth2 redirect URI** — Verify `redirect-uri` in `application-prod.yml` uses `{baseUrl}` (not hardcoded). Confirm the backend domain is registered in Google Cloud Console as an Authorized Redirect URI
+4. **Frontend API URL** — Verify `VITE_API_URL` in `frontend/.env.production` matches the actual backend domain
+5. **No hardcoded localhost** — Grep for `localhost` in `frontend/src/` and `backend/src/main/` (excluding test files). Any hit is a blocker
+6. **Node version consistency** — Verify `frontend/nixpacks.toml` Node version matches what CI uses (`.github/workflows/frontend-ci.yml`)
+7. **Java version consistency** — Verify `backend/nixpacks.toml` JDK version matches what CI uses (`.github/workflows/backend-ci.yml`)
+8. **Required env vars** — Cross-reference `${VAR}` references in `application-prod.yml` with the env var list in `docs/DEPLOYMENT.md`. Flag any missing
+9. **Forward headers** — Verify `server.forward-headers-strategy: framework` is set in `application-prod.yml` (required for Railway proxy / OAuth2 redirect)
+10. **Health check endpoints** — Verify `backend/railway.toml` has `healthcheckPath = "/actuator/health"` and `frontend/railway.toml` has `healthcheckPath = "/"`
+
+### Severity levels
+- **BLOCKER** — Must be fixed before deploying (tests failing, URL mismatch, missing env var)
+- **WARNING** — Should be reviewed but won't prevent deploy (version drift, deprecated config)
+
+> For headless pre-deployment validation, run: `./scripts/pre-deploy-validate.sh`
+> The `/deploySTG` and `/deployPRD` skills must run this checklist as a pre-flight step.

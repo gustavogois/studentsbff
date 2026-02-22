@@ -42,14 +42,14 @@ class SubjectControllerTest {
 ### 4. Smoke Test — `@SpringBootTest`
 Full Spring context with H2. Run before committing a milestone.
 
-## Gradle Commands
+## Maven Commands
 
 | Situation | Command |
 |---|---|
-| Changed an entity/repository | `./gradlew test --tests "*RepositoryTest"` |
-| Changed a service | `./gradlew test --tests "*ServiceTest"` |
-| Changed a controller | `./gradlew test --tests "*ControllerTest"` |
-| Before committing | `./gradlew check` |
+| Changed an entity/repository | `./mvnw test -Dtest="*RepositoryTest"` |
+| Changed a service | `./mvnw test -Dtest="*ServiceTest"` |
+| Changed a controller | `./mvnw test -Dtest="*ControllerTest"` |
+| Before committing | `./mvnw verify` |
 
 ## Assertion Rules
 

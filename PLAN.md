@@ -71,7 +71,7 @@ studentsbff/
 │   │   ├── subject/SubjectServiceTest.java
 │   │   └── integration/
 │   │       └── SubjectIntegrationTest.java  # TestContainers
-│   ├── build.gradle
+│   ├── pom.xml
 │   └── Dockerfile
 ├── frontend/                          # React + TypeScript + Vite + PWA
 │   ├── src/
@@ -107,7 +107,7 @@ studentsbff/
 ## Tarefa 1: Inicializar projeto Spring Boot
 
 **O que fazer:**
-- Criar projeto Gradle com Spring Boot 3.3+ e Java 21
+- Criar projeto Maven com Spring Boot 3.3+ e Java 21
 - Dependencias: Spring Web, Spring Data JPA, Spring Security, PostgreSQL Driver, Flyway, Lombok, jjwt, Validation
 - Configurar `application.yml` com perfis `dev` e `prod`
 - Criar `docker-compose.yml` com PostgreSQL 16
@@ -305,7 +305,7 @@ CREATE TABLE topics (
 ## Ordem de Execucao
 
 ```
-1. Inicializar backend (build.gradle, Application.java, docker-compose.yml)
+1. Inicializar backend (pom.xml, Application.java, docker-compose.yml)
 2. Criar entidades + migracao Flyway
 3. Implementar autenticacao JWT (Security, Filter, Controller)
 4. Implementar CRUD de Subjects e Topics
@@ -322,7 +322,7 @@ Cada tarefa sera implementada sequencialmente nesta ordem. Tarefas 1-5 sao backe
 
 | Decisao | Escolha | Motivo |
 |---------|---------|--------|
-| Build tool | Gradle (Kotlin DSL) | Padrao moderno Spring Boot |
+| Build tool | Maven | Familiaridade do desenvolvedor, ampla documentacao |
 | IDs | UUID | Seguranca, nao expoe sequencia |
 | Migracoes | Flyway | Controle de schema versionado |
 | JWT lib | jjwt (io.jsonwebtoken) | Madura, bem documentada |

@@ -26,9 +26,9 @@ ${CONTRACT}
 
 ## Instructions
 1. Launch TWO parallel Task agents:
-   - **Backend agent:** Read .claude/commands/backend-dev.md. Implement controller, service, repository, DTOs with MapStruct, and tests. Run 'cd backend && ./gradlew check' until green.
+   - **Backend agent:** Read .claude/commands/backend-dev.md. Implement controller, service, repository, DTOs with MapStruct, and tests. Run 'cd backend && ./mvnw verify' until green.
    - **Frontend agent:** Read .claude/commands/frontend-dev.md. Implement types, service function, React page/component, and tests. Run 'cd frontend && npm run build && npm test' until green.
 2. After both complete, review for contract mismatches.
-3. Run full test suite: cd backend && ./gradlew check && cd ../frontend && npm run build && npm test
+3. Run full test suite: cd backend && ./mvnw verify && cd ../frontend && npm run build && npm test
 4. Stage ALL changed files. Do NOT commit." \
   --allowedTools "Read,Edit,Write,Bash,Glob,Grep,Task"

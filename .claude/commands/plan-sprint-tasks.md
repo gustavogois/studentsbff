@@ -68,7 +68,7 @@ Create one file per phase/feature in `docs/plan/sprints/sprint{NNN}/`:
 Step-by-step instructions for manual validation after implementation.
 
 ## Definition of Done
-- [ ] All tests pass (`./gradlew check` / `npm test`)
+- [ ] All tests pass (`./mvnw verify` / `npm test`)
 - [ ] New code has >=80% test coverage
 - [ ] No compilation warnings
 - [ ] Manual testing steps executed and passing

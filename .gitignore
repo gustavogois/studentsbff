@@ -5,7 +5,7 @@ node_modules
 dist
 build
 target
-.gradle
+.mvn/wrapper/maven-wrapper.jar
 
 # Java
 *.class

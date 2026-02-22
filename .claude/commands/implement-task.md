@@ -37,7 +37,7 @@ Make changes across all necessary files following `/backend-dev` and `/frontend-
 
 ### Step 4: Test
 ```bash
-cd backend && ./gradlew check
+cd backend && ./mvnw verify
 cd ../frontend && npm run build && npm test
 ```
 Repeat until green. **Never proceed with red tests.**
