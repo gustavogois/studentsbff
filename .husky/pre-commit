@@ -1,0 +1,7 @@
+cd frontend && npx lint-staged
+
+# Check Java formatting when Java files are staged
+cd "$(git rev-parse --show-toplevel)/backend"
+if git diff --cached --name-only | grep -q '\.java$'; then
+  ./gradlew spotlessCheck -q 2>&1 | tail -5
+fi

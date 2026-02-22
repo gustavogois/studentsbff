@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: studentsbff-db
+    environment:
+      POSTGRES_DB: studentsbff
+      POSTGRES_USER: studentsbff
+      POSTGRES_PASSWORD: studentsbff
+    ports:
+      - "5432:5432"
+    volumes:
+      - studentsbff-data:/var/lib/postgresql/data
+
+volumes:
+  studentsbff-data:
