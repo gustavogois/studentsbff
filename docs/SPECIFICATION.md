@@ -33,8 +33,8 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | B20 | ~~Gmail integration for school email parsing (OAuth + AI)~~ | Must | 002 | Cancelled |
 | B05 | Parent-student linking and parent read-only view | Must | — | Backlog |
 | B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Backlog |
-| B10 | Study plan calendar view (daily/weekly) | Should | — | Backlog |
-| B11 | Manual data entry (exams, assignments, deadlines) | Must | — | Backlog |
+| B10 | Study plan calendar view (daily/weekly) | Should | 003 | Planned |
+| B11 | Manual data entry (exams, assignments, deadlines) | Must | 003 | Planned |
 | B12 | Spaced repetition review system | Should | — | Backlog |
 | B13 | AI chat tutor (contextual Q&A per subject/topic) | Should | — | Backlog |
 | B14 | Mind map generation for topics | Could | — | Backlog |
@@ -46,6 +46,8 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | B21 | Internationalisation (i18n): EN, pt-BR, pt-PT with language switcher | High | 003 | Planned |
 | B22 | Grade as enum dropdown (7-12) + new "turma" (class section) field | High | 003 | Planned |
 | B23 | Edit subject name from the UI (inline rename) | High | 003 | Planned |
+| B24 | UX polish: confirm dialogs for all delete actions | High | 003 | Planned |
+| B25 | UX polish: friendly empty states with icons and CTAs | High | 003 | Planned |
 
 ---
 
@@ -72,3 +74,4 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 |--------|---------|-------|--------|
 | 001 | 0.1.0 | Walking skeleton: scaffolding, DB, auth, subjects CRUD, frontend | Done |
 | 002 | 0.2.0 | Student profile (B08); Gmail integration cancelled (B20) | Done |
+| 003 | 0.3.0 | Study calendar foundations: manual data entry (B11), calendar view (B10), i18n (B21), grade enum + turma (B22), edit subject (B23), confirm dialogs (B24), empty states (B25) | Planned |

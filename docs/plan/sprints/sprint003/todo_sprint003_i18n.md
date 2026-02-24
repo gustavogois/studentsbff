@@ -1,8 +1,7 @@
 # B21 — Internationalisation (i18n): Implementation Plan
 
 **Sprint:** 003
-**Priority:** High
-**Status:** Planned
+**Status:** Not Started
 **Backlog Item:** B21
 **Goal:** Set up `react-i18next` with English (default), Brazilian Portuguese, and European Portuguese. Extract all existing hardcoded UI strings into translation files so every subsequent feature uses translation keys from the start.
 
@@ -14,79 +13,87 @@ The app currently has all UI text hardcoded in English across ~10 frontend files
 
 ---
 
-## Scope
+## Tasks
 
-| Item | Description |
-|------|-------------|
-| Locales | EN (default/fallback), pt-BR, pt-PT |
-| Library | `i18next` + `react-i18next` + `i18next-browser-languagedetector` |
-| Fallback chain | `pt` → `pt-BR` → `en` |
-| Persistence | `localStorage` via LanguageDetector |
-| Language switcher | Profile page (3 buttons: English / Portugues Brasil / Portugues Portugal) |
+### B21.1 — Install deps + create i18n config + translation files
 
----
+**Tests (write first):**
+- [ ] `i18n.test.ts#shouldInitialiseWithEnglishDefault` — import i18n, verify `i18n.language` defaults to `en`
+- [ ] `i18n.test.ts#shouldFallbackToEnglishForUnknownLocale` — set language to `xx`, verify fallback to `en`
+- [ ] `i18n.test.ts#shouldFallbackPtToPtBR` — set language to `pt`, verify resolves to `pt-BR`
 
-## Files to create
-
-| File | Description |
-|------|-------------|
-| `frontend/src/i18n/index.ts` | i18n initialisation (i18next + browser language detector) |
-| `frontend/src/i18n/en.json` | English translations |
-| `frontend/src/i18n/pt-BR.json` | Brazilian Portuguese translations |
-| `frontend/src/i18n/pt-PT.json` | European Portuguese translations |
-
-## Files to modify
-
-| File | Changes |
-|------|---------|
-| `frontend/src/main.tsx` | Import `./i18n` to initialise i18n before app renders |
-| `frontend/src/pages/LoginPage.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/pages/DashboardPage.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/pages/SubjectsPage.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/pages/SubjectDetailPage.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/pages/ProfilePage.tsx` | Replace hardcoded strings with `t()` calls; add language switcher section |
-| `frontend/src/pages/OAuthCallback.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/components/Layout.tsx` | Replace nav labels with `t()` calls |
-| `frontend/src/components/SubjectCard.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/components/TopicList.tsx` | Replace hardcoded strings with `t()` calls |
-| `frontend/src/components/ProtectedRoute.tsx` | Replace hardcoded strings with `t()` calls (if any) |
-
----
-
-## Implementation by task
-
-### B21.1 — Install dependencies
-
-```bash
-cd frontend && npm install i18next react-i18next i18next-browser-languagedetector
-```
-
-### B21.2 — Create i18n config and translation files
-
-- Create `frontend/src/i18n/index.ts` with i18next init, LanguageDetector plugin, fallback chain
-- Create `en.json`, `pt-BR.json`, `pt-PT.json` with namespaced keys:
+**Implementation:**
+- [ ] `npm install i18next react-i18next i18next-browser-languagedetector`
+- [ ] Create `frontend/src/i18n/index.ts` with i18next init, LanguageDetector plugin, fallback chain (`pt` → `pt-BR`, default → `en`)
+- [ ] Create `en.json`, `pt-BR.json`, `pt-PT.json` with namespaced keys:
   - `common` — Loading, cancel, save, delete, confirm, error, success
-  - `nav` — Dashboard, Subjects, Profile, Logout
+  - `nav` — Dashboard, Subjects, Events, Calendar, Profile, Logout
   - `login` — Title, subtitle, Google sign-in button
   - `dashboard` — Welcome message, quick actions
   - `subjects` — Title, create form, empty state, card labels
   - `subjectDetail` — Topics section, add topic form, difficulty labels
   - `profile` — Title, form labels, save button, language section
   - `auth` — Redirecting, session expired messages
+- [ ] Import `./i18n` in `main.tsx` before React app renders
 
-### B21.3 — Initialise in `main.tsx`
-
-Single import: `import './i18n';` before React app renders.
-
-### B21.4 — Extract hardcoded strings from all pages and components
-
-Convert all 6 pages and 4 components to use `useTranslation()` hook with `t()` calls. For any class components, use `i18n.t()` directly.
-
-### B21.5 — Language switcher in Profile page
-
-Add a language section to ProfilePage with three buttons (English / Portugues Brasil / Portugues Portugal). Highlight active language using `i18n.resolvedLanguage`. Language choice persisted via `localStorage` by LanguageDetector.
+**Commit:** `feat(sprint003): B21.1 — add i18n infrastructure with 3 locales`
 
 ---
+
+### B21.2 — Extract hardcoded strings from all pages and components
+
+**Tests (write first):**
+- [ ] Mock `react-i18next` in test setup so `t(key)` returns the key — avoids brittle text assertions
+- [ ] Update all existing test assertions that match on hardcoded English text to use translation keys or regex patterns
+
+**Implementation:**
+- [ ] Add i18n test mock to `frontend/src/setupTests.ts` or a `__mocks__` file
+- [ ] Convert 6 pages: `LoginPage`, `DashboardPage`, `SubjectsPage`, `SubjectDetailPage`, `ProfilePage`, `OAuthCallback`
+- [ ] Convert 4 components: `Layout`, `SubjectCard`, `TopicList`, `ProtectedRoute`
+- [ ] Pattern: `const { t } = useTranslation();` then `t('namespace.key')`
+
+**Commit:** `feat(sprint003): B21.2 — extract all hardcoded strings to i18n translation keys`
+
+---
+
+### B21.3 — Language switcher in Profile page
+
+**Tests (write first):**
+- [ ] `ProfilePage.test.tsx#shouldRenderLanguageSwitcher` — verify 3 language buttons rendered
+- [ ] `ProfilePage.test.tsx#shouldHighlightActiveLanguage` — verify current language button has active styling
+- [ ] `ProfilePage.test.tsx#shouldChangeLanguage` — click pt-BR button, verify `i18n.changeLanguage` called
+
+**Implementation:**
+- [ ] Add language section to `ProfilePage.tsx` with 3 buttons: English, Portugues (Brasil), Portugues (Portugal)
+- [ ] Highlight active language using `i18n.resolvedLanguage`
+- [ ] Language choice persisted via `localStorage` by LanguageDetector
+
+**Commit:** `feat(sprint003): B21.3 — add language switcher to Profile page`
+
+---
+
+## Execution Order
+
+1. B21.1 — Install + config + translation files + test mock
+2. B21.2 — Extract hardcoded strings (depends on B21.1 for i18n setup)
+3. B21.3 — Language switcher (depends on B21.2 for i18n in ProfilePage)
+
+## Commit Plan
+
+| Order | Commit message | Tasks covered |
+|-------|---------------|---------------|
+| 1 | `feat(sprint003): B21.1 — add i18n infrastructure with 3 locales` | B21.1 |
+| 2 | `feat(sprint003): B21.2 — extract all hardcoded strings to i18n translation keys` | B21.2 |
+| 3 | `feat(sprint003): B21.3 — add language switcher to Profile page` | B21.3 |
+
+## Manual Testing
+
+1. Load app → all text in English by default
+2. Change browser language to `pt-BR` → clear localStorage → reload → text in Portuguese
+3. Go to Profile → language switcher visible with 3 buttons
+4. Click "Portugues (Brasil)" → all UI text changes to pt-BR
+5. Reload page → language persisted (still pt-BR)
+6. Click "English" → text reverts to English
 
 ## Definition of Done
 
@@ -96,4 +103,4 @@ Add a language section to ProfilePage with three buttons (English / Portugues Br
 - [ ] Language switcher in Profile page works and persists choice
 - [ ] Browser language auto-detection works (falls back to EN)
 - [ ] `npm run build` succeeds without errors
-- [ ] `npm test` passes (update test assertions to match translation keys or mocked translations)
+- [ ] `npm test` passes
