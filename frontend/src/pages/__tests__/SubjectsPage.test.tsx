@@ -81,7 +81,7 @@ describe("SubjectsPage", () => {
     });
   });
 
-  it("should delete subject", async () => {
+  it("should show confirm dialog and delete subject on confirm", async () => {
     mockedGetSubjects
       .mockResolvedValueOnce([
         { id: "1", name: "Math", createdAt: "", updatedAt: "" },
@@ -89,7 +89,6 @@ describe("SubjectsPage", () => {
       .mockResolvedValueOnce([]);
     mockedDeleteSubject.mockResolvedValueOnce();
 
-    window.confirm = vi.fn(() => true);
     const user = userEvent.setup();
 
     render(
@@ -104,9 +103,51 @@ describe("SubjectsPage", () => {
 
     await user.click(screen.getByText("common.delete"));
 
+    // Confirm dialog should appear
+    expect(
+      screen.getByText("subjects.deleteConfirmMessage"),
+    ).toBeInTheDocument();
+
+    // Click confirm
+    await user.click(screen.getByText("confirm.delete"));
+
     await waitFor(() => {
       expect(mockedDeleteSubject).toHaveBeenCalledWith("1");
     });
+  });
+
+  it("should cancel delete when dialog cancelled", async () => {
+    mockedGetSubjects.mockResolvedValueOnce([
+      { id: "1", name: "Math", createdAt: "", updatedAt: "" },
+    ]);
+
+    const user = userEvent.setup();
+
+    render(
+      <MemoryRouter>
+        <SubjectsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Math")).toBeInTheDocument();
+    });
+
+    await user.click(screen.getByText("common.delete"));
+
+    // Confirm dialog should appear
+    expect(
+      screen.getByText("subjects.deleteConfirmMessage"),
+    ).toBeInTheDocument();
+
+    // Click cancel
+    await user.click(screen.getByText("confirm.cancel"));
+
+    // Dialog should close, no delete
+    expect(
+      screen.queryByText("subjects.deleteConfirmMessage"),
+    ).not.toBeInTheDocument();
+    expect(mockedDeleteSubject).not.toHaveBeenCalled();
   });
 
   it("should show empty state", async () => {

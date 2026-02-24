@@ -131,7 +131,7 @@ describe("SubjectDetailPage", () => {
     });
   });
 
-  it("should delete topic", async () => {
+  it("should show confirm dialog and delete topic on confirm", async () => {
     mockedGetSubject
       .mockResolvedValueOnce({
         id: "sub-1",
@@ -166,6 +166,13 @@ describe("SubjectDetailPage", () => {
     });
 
     await user.click(screen.getByText("common.delete"));
+
+    // Confirm dialog should appear
+    expect(
+      screen.getByText("topics.deleteConfirmMessage"),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByText("confirm.delete"));
 
     await waitFor(() => {
       expect(mockedDeleteTopic).toHaveBeenCalledWith("sub-1", "t-1");

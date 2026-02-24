@@ -9,6 +9,7 @@ import {
   deleteTopic,
 } from "../services/topicService";
 import TopicList from "../components/TopicList";
+import ConfirmDialog from "../components/ConfirmDialog";
 import type { Subject, Topic } from "../types";
 
 export default function SubjectDetailPage() {
@@ -22,6 +23,10 @@ export default function SubjectDetailPage() {
   const [topicDifficulty, setTopicDifficulty] = useState(3);
   const [editingTopic, setEditingTopic] = useState<Topic | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [showDeleteSubject, setShowDeleteSubject] = useState(false);
+  const [deleteTopicTarget, setDeleteTopicTarget] = useState<string | null>(
+    null,
+  );
 
   const loadData = async () => {
     if (!id) return;
@@ -76,24 +81,27 @@ export default function SubjectDetailPage() {
     setTopicDifficulty(topic.difficulty);
   };
 
-  const handleDeleteTopic = async (topicId: string) => {
-    if (!id) return;
+  const confirmDeleteTopic = async () => {
+    if (!id || !deleteTopicTarget) return;
     try {
-      await deleteTopic(id, topicId);
+      await deleteTopic(id, deleteTopicTarget);
       loadData();
     } catch (err) {
       console.error(err);
+    } finally {
+      setDeleteTopicTarget(null);
     }
   };
 
-  const handleDeleteSubject = async () => {
-    if (!id || !window.confirm("Delete this subject and all its topics?"))
-      return;
+  const confirmDeleteSubject = async () => {
+    if (!id) return;
     try {
       await deleteSubject(id);
       navigate("/subjects", { replace: true });
     } catch (err) {
       console.error(err);
+    } finally {
+      setShowDeleteSubject(false);
     }
   };
 
@@ -112,7 +120,7 @@ export default function SubjectDetailPage() {
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-gray-900">{subject.name}</h1>
         <button
-          onClick={handleDeleteSubject}
+          onClick={() => setShowDeleteSubject(true)}
           className="rounded-md bg-red-50 px-3 py-1.5 text-sm text-red-600 hover:bg-red-100"
         >
           {t("subjectDetail.deleteButton")}
@@ -168,11 +176,27 @@ export default function SubjectDetailPage() {
         <div className="mt-4">
           <TopicList
             topics={topics}
-            onDelete={handleDeleteTopic}
+            onDelete={(topicId) => setDeleteTopicTarget(topicId)}
             onEdit={handleEdit}
           />
         </div>
       </div>
+
+      <ConfirmDialog
+        open={showDeleteSubject}
+        title={t("subjectDetail.deleteConfirmTitle")}
+        message={t("subjectDetail.deleteConfirmMessage")}
+        onConfirm={confirmDeleteSubject}
+        onCancel={() => setShowDeleteSubject(false)}
+      />
+
+      <ConfirmDialog
+        open={deleteTopicTarget !== null}
+        title={t("topics.deleteConfirmTitle")}
+        message={t("topics.deleteConfirmMessage")}
+        onConfirm={confirmDeleteTopic}
+        onCancel={() => setDeleteTopicTarget(null)}
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
   updateSubject,
   deleteSubject,
 } from "../services/subjectService";
+import ConfirmDialog from "../components/ConfirmDialog";
 import type { Subject } from "../types";
 
 export default function SubjectsPage() {
@@ -17,6 +18,7 @@ export default function SubjectsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editName, setEditName] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<string | null>(null);
   const editInputRef = useRef<HTMLInputElement>(null);
 
   const loadSubjects = () => {
@@ -51,13 +53,15 @@ export default function SubjectsPage() {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!window.confirm("Delete this subject?")) return;
+  const confirmDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      await deleteSubject(id);
+      await deleteSubject(deleteTarget);
       loadSubjects();
     } catch (err) {
       console.error(err);
+    } finally {
+      setDeleteTarget(null);
     }
   };
 
@@ -162,7 +166,7 @@ export default function SubjectsPage() {
                   </button>
                 )}
                 <button
-                  onClick={() => handleDelete(subject.id)}
+                  onClick={() => setDeleteTarget(subject.id)}
                   className="text-sm text-red-600 hover:text-red-800"
                 >
                   {t("common.delete")}
@@ -172,6 +176,14 @@ export default function SubjectsPage() {
           ))}
         </ul>
       )}
+
+      <ConfirmDialog
+        open={deleteTarget !== null}
+        title={t("subjects.deleteConfirmTitle")}
+        message={t("subjects.deleteConfirmMessage")}
+        onConfirm={confirmDelete}
+        onCancel={() => setDeleteTarget(null)}
+      />
     </div>
   );
 }
