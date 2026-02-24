@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.studentsbff.dto.StudentProfileRequest;
 import com.studentsbff.dto.StudentProfileResponse;
 import com.studentsbff.mapper.StudentMapper;
+import com.studentsbff.model.Grade;
 import com.studentsbff.model.Role;
 import com.studentsbff.model.Student;
 import com.studentsbff.model.User;
@@ -54,11 +55,14 @@ class StudentServiceTest {
                 Student.builder()
                         .id(studentId)
                         .user(user)
-                        .grade("7th")
+                        .grade(Grade.GRADE_7)
                         .school("Lincoln Middle School")
+                        .turma("A")
                         .createdAt(now)
                         .build();
-        profileResponse = new StudentProfileResponse(studentId, "7th", "Lincoln Middle School", now);
+        profileResponse =
+                new StudentProfileResponse(
+                        studentId, Grade.GRADE_7, "Lincoln Middle School", "A", now);
     }
 
     @Test
@@ -68,15 +72,34 @@ class StudentServiceTest {
 
         StudentProfileResponse result = studentService.getProfile(studentId);
 
-        assertThat(result.grade()).isEqualTo("7th");
+        assertThat(result.grade()).isEqualTo(Grade.GRADE_7);
         assertThat(result.school()).isEqualTo("Lincoln Middle School");
+        assertThat(result.turma()).isEqualTo("A");
     }
 
     @Test
     void shouldUpdateStudentProfile() {
         StudentProfileRequest request = new StudentProfileRequest();
-        request.setGrade("8th");
+        request.setGrade(Grade.GRADE_8);
         request.setSchool("Washington Middle School");
+        request.setTurma("B");
+
+        when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
+        when(studentRepository.save(student)).thenReturn(student);
+        when(studentMapper.toProfileResponse(student)).thenReturn(profileResponse);
+
+        StudentProfileResponse result = studentService.updateProfile(studentId, request);
+
+        assertThat(result).isNotNull();
+        verify(studentRepository).save(student);
+    }
+
+    @Test
+    void shouldUpdateProfileWithNullGradeAndTurma() {
+        StudentProfileRequest request = new StudentProfileRequest();
+        request.setGrade(null);
+        request.setSchool("Test School");
+        request.setTurma(null);
 
         when(studentRepository.findById(studentId)).thenReturn(Optional.of(student));
         when(studentRepository.save(student)).thenReturn(student);

@@ -2,6 +2,8 @@ package com.studentsbff.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,10 +34,14 @@ public class Student {
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private User user;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private String grade;
+    private Grade grade;
 
     private String school;
+
+    @Column(length = 100)
+    private String turma;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;

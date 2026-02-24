@@ -44,6 +44,7 @@ public class StudentService {
                                                 "Student not found with id: " + studentId));
         student.setGrade(request.getGrade());
         student.setSchool(request.getSchool());
+        student.setTurma(request.getTurma());
         Student saved = studentRepository.save(student);
         return studentMapper.toProfileResponse(saved);
     }

@@ -1,13 +1,17 @@
 package com.studentsbff.controller;
 
+import com.studentsbff.dto.GradeResponse;
 import com.studentsbff.dto.StudentProfileRequest;
 import com.studentsbff.dto.StudentProfileResponse;
+import com.studentsbff.model.Grade;
 import com.studentsbff.model.Student;
 import com.studentsbff.model.User;
 import com.studentsbff.repository.StudentRepository;
 import com.studentsbff.repository.UserRepository;
 import com.studentsbff.service.StudentService;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +36,15 @@ public class StudentController {
         this.studentService = studentService;
         this.userRepository = userRepository;
         this.studentRepository = studentRepository;
+    }
+
+    @GetMapping("/grades")
+    public ResponseEntity<List<GradeResponse>> listGrades() {
+        List<GradeResponse> grades =
+                Arrays.stream(Grade.values())
+                        .map(g -> new GradeResponse(g.name(), g.getLabel()))
+                        .toList();
+        return ResponseEntity.ok(grades);
     }
 
     @GetMapping("/profile")
