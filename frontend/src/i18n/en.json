@@ -36,6 +36,7 @@
   "subjects.emptyTitle": "No subjects yet",
   "subjects.emptyMessage": "Add one above to get started.",
   "subjects.deleteConfirmTitle": "Delete Subject",
+  "subjects.editLabel": "Edit subject name",
   "subjects.deleteConfirmMessage": "Are you sure you want to delete this subject?",
 
   "subjectDetail.deleteButton": "Delete Subject",

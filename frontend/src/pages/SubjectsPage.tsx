@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   getSubjects,
   createSubject,
+  updateSubject,
   deleteSubject,
 } from "../services/subjectService";
 import type { Subject } from "../types";
@@ -14,6 +15,9 @@ export default function SubjectsPage() {
   const [loading, setLoading] = useState(true);
   const [newName, setNewName] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editName, setEditName] = useState("");
+  const editInputRef = useRef<HTMLInputElement>(null);
 
   const loadSubjects = () => {
     getSubjects()
@@ -25,6 +29,12 @@ export default function SubjectsPage() {
   useEffect(() => {
     loadSubjects();
   }, []);
+
+  useEffect(() => {
+    if (editingId && editInputRef.current) {
+      editInputRef.current.focus();
+    }
+  }, [editingId]);
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +58,40 @@ export default function SubjectsPage() {
       loadSubjects();
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const startEditing = (subject: Subject) => {
+    setEditingId(subject.id);
+    setEditName(subject.name);
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditName("");
+  };
+
+  const saveEdit = async () => {
+    if (!editingId || !editName.trim()) {
+      cancelEditing();
+      return;
+    }
+    try {
+      await updateSubject(editingId, { name: editName.trim() });
+      loadSubjects();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      cancelEditing();
+    }
+  };
+
+  const handleEditKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      saveEdit();
+    } else if (e.key === "Escape") {
+      cancelEditing();
     }
   };
 
@@ -89,18 +133,41 @@ export default function SubjectsPage() {
               key={subject.id}
               className="flex items-center justify-between px-4 py-3"
             >
-              <Link
-                to={`/subjects/${subject.id}`}
-                className="font-medium text-indigo-600 hover:text-indigo-800"
-              >
-                {subject.name}
-              </Link>
-              <button
-                onClick={() => handleDelete(subject.id)}
-                className="text-sm text-red-600 hover:text-red-800"
-              >
-                {t("common.delete")}
-              </button>
+              {editingId === subject.id ? (
+                <input
+                  ref={editInputRef}
+                  type="text"
+                  value={editName}
+                  onChange={(e) => setEditName(e.target.value)}
+                  onKeyDown={handleEditKeyDown}
+                  onBlur={saveEdit}
+                  className="flex-1 rounded-md border border-gray-300 px-2 py-1 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                  aria-label={t("subjects.editLabel")}
+                />
+              ) : (
+                <Link
+                  to={`/subjects/${subject.id}`}
+                  className="font-medium text-indigo-600 hover:text-indigo-800"
+                >
+                  {subject.name}
+                </Link>
+              )}
+              <div className="flex items-center gap-2">
+                {editingId !== subject.id && (
+                  <button
+                    onClick={() => startEditing(subject)}
+                    className="text-sm text-gray-500 hover:text-gray-700"
+                  >
+                    {t("common.edit")}
+                  </button>
+                )}
+                <button
+                  onClick={() => handleDelete(subject.id)}
+                  className="text-sm text-red-600 hover:text-red-800"
+                >
+                  {t("common.delete")}
+                </button>
+              </div>
             </li>
           ))}
         </ul>

@@ -36,6 +36,7 @@
   "subjects.emptyTitle": "Nenhuma matéria ainda",
   "subjects.emptyMessage": "Adicione uma acima para começar.",
   "subjects.deleteConfirmTitle": "Excluir Matéria",
+  "subjects.editLabel": "Editar nome da matéria",
   "subjects.deleteConfirmMessage": "Tem certeza que deseja excluir esta matéria?",
 
   "subjectDetail.deleteButton": "Excluir Matéria",

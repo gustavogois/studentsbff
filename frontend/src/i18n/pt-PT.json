@@ -36,6 +36,7 @@
   "subjects.emptyTitle": "Sem disciplinas ainda",
   "subjects.emptyMessage": "Adiciona uma acima para começar.",
   "subjects.deleteConfirmTitle": "Eliminar Disciplina",
+  "subjects.editLabel": "Editar nome da disciplina",
   "subjects.deleteConfirmMessage": "Tens a certeza que queres eliminar esta disciplina?",
 
   "subjectDetail.deleteButton": "Eliminar Disciplina",

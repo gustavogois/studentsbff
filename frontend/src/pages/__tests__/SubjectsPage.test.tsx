@@ -6,18 +6,21 @@ import { MemoryRouter } from "react-router-dom";
 vi.mock("../../services/subjectService", () => ({
   getSubjects: vi.fn(),
   createSubject: vi.fn(),
+  updateSubject: vi.fn(),
   deleteSubject: vi.fn(),
 }));
 
 import {
   getSubjects,
   createSubject,
+  updateSubject,
   deleteSubject,
 } from "../../services/subjectService";
 import SubjectsPage from "../SubjectsPage";
 
 const mockedGetSubjects = vi.mocked(getSubjects);
 const mockedCreateSubject = vi.mocked(createSubject);
+const mockedUpdateSubject = vi.mocked(updateSubject);
 const mockedDeleteSubject = vi.mocked(deleteSubject);
 
 describe("SubjectsPage", () => {
@@ -118,5 +121,107 @@ describe("SubjectsPage", () => {
     await waitFor(() => {
       expect(screen.getByText("subjects.emptyTitle")).toBeInTheDocument();
     });
+  });
+
+  it("should show edit button on each subject", async () => {
+    mockedGetSubjects.mockResolvedValueOnce([
+      { id: "1", name: "Math", createdAt: "", updatedAt: "" },
+    ]);
+
+    render(
+      <MemoryRouter>
+        <SubjectsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("common.edit")).toBeInTheDocument();
+    });
+  });
+
+  it("should enter edit mode on click", async () => {
+    mockedGetSubjects.mockResolvedValueOnce([
+      { id: "1", name: "Math", createdAt: "", updatedAt: "" },
+    ]);
+
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <SubjectsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Math")).toBeInTheDocument();
+    });
+
+    await user.click(screen.getByText("common.edit"));
+
+    expect(screen.getByDisplayValue("Math")).toBeInTheDocument();
+  });
+
+  it("should save on Enter", async () => {
+    mockedGetSubjects
+      .mockResolvedValueOnce([
+        { id: "1", name: "Math", createdAt: "", updatedAt: "" },
+      ])
+      .mockResolvedValueOnce([
+        { id: "1", name: "Mathematics", createdAt: "", updatedAt: "" },
+      ]);
+    mockedUpdateSubject.mockResolvedValueOnce({
+      id: "1",
+      name: "Mathematics",
+      createdAt: "",
+      updatedAt: "",
+    });
+
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <SubjectsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Math")).toBeInTheDocument();
+    });
+
+    await user.click(screen.getByText("common.edit"));
+    const input = screen.getByDisplayValue("Math");
+    await user.clear(input);
+    await user.type(input, "Mathematics{Enter}");
+
+    await waitFor(() => {
+      expect(mockedUpdateSubject).toHaveBeenCalledWith("1", {
+        name: "Mathematics",
+      });
+    });
+  });
+
+  it("should cancel on Escape", async () => {
+    mockedGetSubjects.mockResolvedValueOnce([
+      { id: "1", name: "Math", createdAt: "", updatedAt: "" },
+    ]);
+
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter>
+        <SubjectsPage />
+      </MemoryRouter>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Math")).toBeInTheDocument();
+    });
+
+    await user.click(screen.getByText("common.edit"));
+    const input = screen.getByDisplayValue("Math");
+    await user.clear(input);
+    await user.type(input, "New Name{Escape}");
+
+    // After Escape, input should be gone and original name restored
+    expect(screen.queryByDisplayValue("New Name")).not.toBeInTheDocument();
+    expect(screen.getByText("Math")).toBeInTheDocument();
+    expect(mockedUpdateSubject).not.toHaveBeenCalled();
   });
 });
