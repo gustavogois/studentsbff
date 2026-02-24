@@ -29,6 +29,7 @@ This project follows [Semantic Versioning](https://semver.org/):
 - **Status:** Implemented (pending deployment)
 - **Scope:** Project scaffolding, Flyway V1 DB schema, Google OAuth2 + JWT, CRUD subjects & topics, React frontend with login/dashboard/subjects pages, protected routes
 
-### v0.2.0 — Sprint 002: School Context (Planned)
+### v0.2.0 — Sprint 002: School Context
 - **Sprint:** 002
-- **Scope:** Student profile management (B08), Gmail integration with AI parsing (B20)
+- **Status:** Done
+- **Scope:** Student profile management (B08). Gmail integration (B20) cancelled — school Google accounts block unverified OAuth apps; all Gmail/OpenAI code removed. Added mandatory exception logging for all error responses.

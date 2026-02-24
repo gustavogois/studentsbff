@@ -22,14 +22,14 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | B04 | CRUD subjects and topics | 0.1.0 | 001 |
 | B06 | Frontend: Google login, dashboard, subjects pages | 0.1.0 | 001 |
 | B07 | Protected routes and auth context | 0.1.0 | 001 |
+| B08 | Student profile management (grade, school) | 0.2.0 | 002 |
 
 ### 2.2 Backlog
 
-> Updated during refinement session on 2026-02-22 (Sprint 002 planning).
+> Updated on 2026-02-24 (Sprint 002 closure).
 
 | ID | Feature | Priority | Sprint | Status |
 |----|---------|----------|--------|--------|
-| B08 | Student profile management (grade, school) | Must | 002 | Planned |
 | B20 | ~~Gmail integration for school email parsing (OAuth + AI)~~ | Must | 002 | Cancelled |
 | B05 | Parent-student linking and parent read-only view | Must | — | Backlog |
 | B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Backlog |
@@ -71,4 +71,4 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | Sprint | Version | Scope | Status |
 |--------|---------|-------|--------|
 | 001 | 0.1.0 | Walking skeleton: scaffolding, DB, auth, subjects CRUD, frontend | Done |
-| 002 | 0.2.0 | School context: student profile (B08), Gmail integration with AI parsing (B20) | Planned |
+| 002 | 0.2.0 | Student profile (B08); Gmail integration cancelled (B20) | Done |

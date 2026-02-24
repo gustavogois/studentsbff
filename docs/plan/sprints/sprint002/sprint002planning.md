@@ -84,20 +84,25 @@ This is the larger feature, touching multiple layers:
 | B05 | Parent-student linking and parent read-only view | Focus Sprint 002 on student school context features | Sprint 003+ |
 | B11 | Manual data entry (exams, assignments, deadlines) | Shares data model with B20 but manual UI deferred | Sprint 003 |
 
+## Sprint Status: Done
+
+**Completed:** B08 (student profile) — P1, P2
+**Cancelled:** B20 (Gmail integration) — P3, P4, P5, P6, P7. Reason: school Google accounts restrict OAuth consent to verified apps; the entire Gmail pipeline was dead code and has been removed.
+
 ## Definition of Done
 
-- [ ] Student can view and edit their profile (grade, school)
-- [ ] Google OAuth flow requests Gmail read scope
-- [ ] Google access/refresh tokens are persisted securely
-- [ ] Backend can fetch emails from student's Gmail
-- [ ] OpenAI GPT-4o parses emails and extracts school events
-- [ ] Extracted events are stored in school_events table
-- [ ] Student can view list of extracted school events
-- [ ] Student can delete incorrect events
-- [ ] Gmail sync deduplicates by email message ID
-- [ ] LLMProvider interface exists for future provider switching
-- [ ] All backend tests pass (`./mvnw verify`)
-- [ ] Frontend builds and tests pass (`npm run build && npm test`)
+- [x] Student can view and edit their profile (grade, school)
+- [x] All backend tests pass (`./mvnw verify`) — 44 tests
+- [x] Frontend builds and tests pass (`npm run build && npm test`) — 30 tests
+- [ ] ~~Google OAuth flow requests Gmail read scope~~ (Cancelled)
+- [ ] ~~Google access/refresh tokens are persisted securely~~ (Cancelled)
+- [ ] ~~Backend can fetch emails from student's Gmail~~ (Cancelled)
+- [ ] ~~OpenAI GPT-4o parses emails and extracts school events~~ (Cancelled)
+- [ ] ~~Extracted events are stored in school_events table~~ (Cancelled)
+- [ ] ~~Student can view list of extracted school events~~ (Cancelled)
+- [ ] ~~Student can delete incorrect events~~ (Cancelled)
+- [ ] ~~Gmail sync deduplicates by email message ID~~ (Cancelled)
+- [ ] ~~LLMProvider interface exists for future provider switching~~ (Cancelled)
 - [ ] Deployed to STG via Railway
 
 ## Decisions Made During Refinement
