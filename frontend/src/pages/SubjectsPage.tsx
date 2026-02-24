@@ -8,6 +8,7 @@ import {
   deleteSubject,
 } from "../services/subjectService";
 import ConfirmDialog from "../components/ConfirmDialog";
+import EmptyState from "../components/EmptyState";
 import type { Subject } from "../types";
 
 export default function SubjectsPage() {
@@ -127,8 +128,25 @@ export default function SubjectsPage() {
       </form>
 
       {subjects.length === 0 ? (
-        <div className="mt-6 rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
-          <p className="text-gray-500">{t("subjects.emptyTitle")}</p>
+        <div className="mt-6">
+          <EmptyState
+            icon={
+              <svg
+                className="h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
+                />
+              </svg>
+            }
+            message={t("subjects.emptyTitle")}
+          />
         </div>
       ) : (
         <ul className="mt-6 divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
