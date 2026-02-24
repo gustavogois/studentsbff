@@ -3,7 +3,7 @@ import { getProfile, updateProfile } from "../services/profileService";
 import type { StudentProfile } from "../types";
 
 export default function ProfilePage() {
-  const [profile, setProfile] = useState<StudentProfile | null>(null);
+  const [, setProfile] = useState<StudentProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [grade, setGrade] = useState("");

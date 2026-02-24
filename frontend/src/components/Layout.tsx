@@ -28,12 +28,7 @@ export default function Layout() {
               >
                 Subjects
               </Link>
-              <Link
-                to="/events"
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                Events
-              </Link>
+
               <Link
                 to="/profile"
                 className="text-sm text-gray-600 hover:text-gray-900"

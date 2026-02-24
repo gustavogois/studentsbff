@@ -44,15 +44,6 @@ public class User {
     @Column(name = "avatar_url", length = 500)
     private String avatarUrl;
 
-    @Column(name = "google_access_token", columnDefinition = "TEXT")
-    private String googleAccessToken;
-
-    @Column(name = "google_refresh_token", columnDefinition = "TEXT")
-    private String googleRefreshToken;
-
-    @Column(name = "google_token_expiry")
-    private Instant googleTokenExpiry;
-
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
