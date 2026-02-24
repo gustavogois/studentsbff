@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +30,7 @@ public class EmailParsingService {
     private final LLMProvider llmProvider;
     private final ObjectMapper objectMapper;
 
+    @Autowired
     public EmailParsingService(LLMProvider llmProvider) {
         this.llmProvider = llmProvider;
         this.objectMapper = new ObjectMapper();

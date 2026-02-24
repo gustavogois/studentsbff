@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,6 +20,7 @@ public class OpenAiProvider implements LLMProvider {
     private final RestTemplate restTemplate;
     private final OpenAiConfig config;
 
+    @Autowired
     public OpenAiProvider(OpenAiConfig config) {
         this(config, new RestTemplate());
     }
