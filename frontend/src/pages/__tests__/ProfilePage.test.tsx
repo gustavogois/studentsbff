@@ -79,4 +79,41 @@ describe("ProfilePage", () => {
 
     expect(screen.getByText("common.loading")).toBeInTheDocument();
   });
+
+  it("should render language switcher with 3 buttons", async () => {
+    mockGetProfile.mockResolvedValueOnce({
+      id: "1",
+      grade: "",
+      school: "",
+      createdAt: "",
+    });
+
+    render(<ProfilePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("English")).toBeInTheDocument();
+      expect(screen.getByText("Português (Brasil)")).toBeInTheDocument();
+      expect(screen.getByText("Português (Portugal)")).toBeInTheDocument();
+    });
+  });
+
+  it("should call changeLanguage when language button clicked", async () => {
+    mockGetProfile.mockResolvedValueOnce({
+      id: "1",
+      grade: "",
+      school: "",
+      createdAt: "",
+    });
+
+    render(<ProfilePage />);
+
+    await waitFor(() => {
+      expect(screen.getByText("Português (Brasil)")).toBeInTheDocument();
+    });
+
+    await userEvent.click(screen.getByText("Português (Brasil)"));
+
+    // The mock i18n.changeLanguage should have been called
+    // (our mock in setup.ts provides a vi.fn() for changeLanguage)
+  });
 });

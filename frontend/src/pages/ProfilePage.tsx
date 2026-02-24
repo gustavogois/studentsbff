@@ -3,8 +3,14 @@ import { useTranslation } from "react-i18next";
 import { getProfile, updateProfile } from "../services/profileService";
 import type { StudentProfile } from "../types";
 
+const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "pt-BR", label: "Português (Brasil)" },
+  { code: "pt-PT", label: "Português (Portugal)" },
+];
+
 export default function ProfilePage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [, setProfile] = useState<StudentProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -100,6 +106,27 @@ export default function ProfilePage() {
           </p>
         )}
       </form>
+
+      <div className="mt-8 max-w-md">
+        <h2 className="text-lg font-semibold text-gray-900">
+          {t("profile.language")}
+        </h2>
+        <div className="mt-3 flex gap-2">
+          {LANGUAGES.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => i18n.changeLanguage(lang.code)}
+              className={`rounded-md px-4 py-2 text-sm font-medium ${
+                i18n.resolvedLanguage === lang.code
+                  ? "bg-indigo-600 text-white"
+                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              }`}
+            >
+              {lang.label}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
