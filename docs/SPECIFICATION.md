@@ -30,7 +30,7 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | ID | Feature | Priority | Sprint | Status |
 |----|---------|----------|--------|--------|
 | B08 | Student profile management (grade, school) | Must | 002 | Planned |
-| B20 | Gmail integration for school email parsing (OAuth + AI) | Must | 002 | Planned |
+| B20 | ~~Gmail integration for school email parsing (OAuth + AI)~~ | Must | 002 | Cancelled |
 | B05 | Parent-student linking and parent read-only view | Must | — | Backlog |
 | B09 | AI-powered study plan generation (OpenAI GPT-4o) | Must | — | Backlog |
 | B10 | Study plan calendar view (daily/weekly) | Should | — | Backlog |
@@ -45,6 +45,7 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | B19 | Photo/OCR data capture (agenda, notebook) | Could | — | Backlog |
 | B21 | Internationalisation (i18n): EN, pt-BR, pt-PT with language switcher | High | 003 | Planned |
 | B22 | Grade as enum dropdown (7-12) + new "turma" (class section) field | High | 003 | Planned |
+| B23 | Edit subject name from the UI (inline rename) | High | 003 | Planned |
 
 ---
 

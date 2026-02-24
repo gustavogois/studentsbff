@@ -1,7 +1,7 @@
 # P7 — Frontend Events (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Done
+**Status:** Cancelled — Gmail integration removed from scope (school Google accounts block unverified OAuth apps)
 **Backlog item:** B20 (part 6)
 **Goal:** Frontend pages for triggering Gmail sync and viewing/managing extracted school events.
 

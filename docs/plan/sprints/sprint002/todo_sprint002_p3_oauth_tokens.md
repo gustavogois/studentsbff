@@ -1,7 +1,7 @@
 # P3 — OAuth Token Persistence & Gmail Scope (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Done
+**Status:** Cancelled — Gmail integration removed from scope (school Google accounts block unverified OAuth apps)
 **Backlog item:** B20 (part 2)
 **Goal:** Expand Google OAuth2 to request Gmail read scope and persist access/refresh tokens for later Gmail API calls.
 

@@ -1,7 +1,7 @@
 # P4 — Gmail API Client (B20): Implementation Plan
 
 **Sprint:** 002
-**Status:** Done
+**Status:** Cancelled — Gmail integration removed from scope (school Google accounts block unverified OAuth apps)
 **Backlog item:** B20 (part 3)
 **Goal:** Service that fetches recent emails from a student's Gmail using stored OAuth tokens.
 
