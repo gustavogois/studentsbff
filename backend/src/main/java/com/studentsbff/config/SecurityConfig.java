@@ -2,6 +2,7 @@ package com.studentsbff.config;
 
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+/**
+ * Spring Security configuration for JWT-based stateless authentication with OAuth2 login.
+ */
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -32,6 +37,13 @@ public class SecurityConfig {
         this.frontendUrl = frontendUrl;
     }
 
+    /**
+     * Configures the security filter chain.
+     *
+     * @param http the HttpSecurity builder
+     * @return the configured SecurityFilterChain
+     * @throws Exception if configuration fails
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -50,9 +62,14 @@ public class SecurityConfig {
                 .exceptionHandling(
                         ex ->
                                 ex.authenticationEntryPoint(
-                                        (request, response, authException) ->
-                                                response.sendError(
-                                                        HttpServletResponse.SC_UNAUTHORIZED)))
+                                        (request, response, authException) -> {
+                                            log.warn("Unauthorized request '{} {}': {}",
+                                                    request.getMethod(),
+                                                    request.getRequestURI(),
+                                                    authException.getMessage());
+                                            response.sendError(
+                                                    HttpServletResponse.SC_UNAUTHORIZED);
+                                        }))
                 .oauth2Login(
                         oauth2 ->
                                 oauth2.successHandler(oAuth2AuthenticationSuccessHandler))
@@ -62,6 +79,11 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configures CORS to allow requests from the frontend origin.
+     *
+     * @return the CORS configuration source
+     */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

@@ -10,8 +10,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.UUID;
 import javax.crypto.SecretKey;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for generating and validating JWT tokens.
+ */
+@Slf4j
 @Service
 public class JwtService {
 
@@ -21,6 +26,12 @@ public class JwtService {
         this.jwtProperties = jwtProperties;
     }
 
+    /**
+     * Generates a JWT token for the given user.
+     *
+     * @param user the authenticated user
+     * @return a signed JWT string
+     */
     public String generateToken(User user) {
         Date now = new Date();
         Date expiry = new Date(now.getTime() + jwtProperties.getExpiration());
@@ -35,21 +46,40 @@ public class JwtService {
                 .compact();
     }
 
+    /**
+     * Extracts the user ID from a JWT token.
+     *
+     * @param token the JWT string
+     * @return the user's UUID
+     */
     public UUID extractUserId(String token) {
         Claims claims = extractAllClaims(token);
         return UUID.fromString(claims.getSubject());
     }
 
+    /**
+     * Extracts the email claim from a JWT token.
+     *
+     * @param token the JWT string
+     * @return the user's email
+     */
     public String extractEmail(String token) {
         Claims claims = extractAllClaims(token);
         return claims.get("email", String.class);
     }
 
+    /**
+     * Checks whether a JWT token is valid (well-formed, correctly signed, not expired).
+     *
+     * @param token the JWT string
+     * @return true if valid, false otherwise
+     */
     public boolean isTokenValid(String token) {
         try {
             extractAllClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
+            log.warn("Invalid JWT token: {}", e.getMessage());
             return false;
         }
     }
