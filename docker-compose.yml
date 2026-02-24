@@ -7,7 +7,7 @@ services:
       POSTGRES_USER: studentsbff
       POSTGRES_PASSWORD: studentsbff
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - studentsbff-data:/var/lib/postgresql/data
 

@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/studentsbff
+    url: jdbc:postgresql://localhost:5433/studentsbff
     username: studentsbff
     password: studentsbff
     driver-class-name: org.postgresql.Driver
@@ -22,6 +22,7 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
             scope: openid, email, profile
+            authorization-grant-type: authorization_code
 
 jwt:
   secret: dev-secret-key-for-local-development-only-change-in-production-must-be-at-least-256-bits

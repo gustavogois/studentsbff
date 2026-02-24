@@ -24,4 +24,12 @@ This project follows [Semantic Versioning](https://semver.org/):
 
 ## Release History
 
-_No releases yet._
+### v0.1.0 — Sprint 001: Walking Skeleton
+- **Sprint:** 001
+- **Status:** Implemented (pending deployment)
+- **Scope:** Project scaffolding, Flyway V1 DB schema, Google OAuth2 + JWT, CRUD subjects & topics, React frontend with login/dashboard/subjects pages, protected routes
+
+### v0.2.0 — Sprint 002: School Context
+- **Sprint:** 002
+- **Status:** Done
+- **Scope:** Student profile management (B08). Gmail integration (B20) cancelled — school Google accounts block unverified OAuth apps; all Gmail/OpenAI code removed. Added mandatory exception logging for all error responses.

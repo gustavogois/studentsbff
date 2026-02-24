@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-02-24
+
+### Added
+- Student profile management: `GET/PUT /api/students/profile` (grade, school)
+- Profile page in frontend with editable grade and school fields
+- Flyway V3 migration (cleanup of removed Gmail schema)
+- Mandatory exception logging on all 4xx/5xx responses (GlobalExceptionHandler, JWT filter, security entry point)
+
+### Removed
+- Gmail integration (B20) — school Google accounts block unverified OAuth apps
+- OpenAI/LLM provider layer — only used for Gmail email parsing
+- School events feature (entity, API, frontend page)
+- Google OAuth token persistence (access/refresh tokens no longer stored)
+- Gmail readonly scope and offline access from OAuth config
+
 ## [0.1.0] — 2026-02-22
 
 ### Added

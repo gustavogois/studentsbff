@@ -42,6 +42,7 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
         String picture = oAuth2User.getAttribute("picture");
 
         User user = userService.findOrCreateOAuthUser(email, name, picture);
+
         String jwt = jwtService.generateToken(user);
 
         response.sendRedirect(frontendUrl + "/oauth/callback?token=" + jwt);

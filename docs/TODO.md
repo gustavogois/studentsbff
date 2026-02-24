@@ -2,7 +2,40 @@
 
 Current sprint tasks are tracked here. Updated after each task completion.
 
-## Sprint 001 — Walking Skeleton
+## Sprint 002 — School Context
+
+### P1 — Student Profile (B08)
+- [x] P1.1 — Student profile backend (service + DTOs + controller)
+- [x] P1.2 — Student profile frontend (page + navigation)
+
+### P2 — Database Schema V2 & Entities (B20)
+- [x] P2.1 — Flyway V2 migration (school_events table + OAuth token columns)
+- [x] P2.2 — SchoolEvent entity, enums, repository + User token fields
+
+### P3 — OAuth Token Persistence & Gmail Scope (B20)
+- [x] P3.1 — Persist Google OAuth tokens and add Gmail scope
+
+### P4 — Gmail API Client (B20)
+- [x] P4.1 — Gmail service to fetch emails
+
+### P5 — LLM Provider & Email Parsing (B20)
+- [x] P5.1 — LLMProvider interface and OpenAI implementation
+- [x] P5.2 — Email parsing service with AI extraction
+
+### P6 — School Events API & Sync (B20)
+- [x] P6.1 — SchoolEvent service and DTOs
+- [x] P6.2 — Gmail sync orchestration and school events API endpoints
+
+### P7 — Frontend Events (B20)
+- [x] P7.1 — School event types and API services
+- [x] P7.2 — School events page with Gmail sync UI
+
+---
+
+## Sprint 001 — Walking Skeleton (Done)
+
+<details>
+<summary>All 21 tasks completed</summary>
 
 ### P1 — Project Scaffolding (B01)
 - [x] P1.1 — Backend Maven project with Spring Boot 3
@@ -36,3 +69,5 @@ Current sprint tasks are tracked here. Updated after each task completion.
 - [x] P6.2 — Dashboard page and SubjectCard
 - [x] P6.3 — Subjects page with CRUD
 - [x] P6.4 — Subject detail page with topics CRUD
+
+</details>

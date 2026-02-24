@@ -78,6 +78,43 @@ log.error("Study plan generation failed for student '{}'", studentId, e);
 - Add field-level Javadoc on entity fields when the name alone is not self-explanatory
 - Do not document Lombok-generated methods — document the fields instead
 
+## Exception Logging (mandatory)
+
+No 4xx or 5xx response may be returned to the frontend **silently**. Every error
+path must produce at least one log statement before the response leaves the server.
+
+| HTTP range | Minimum log level | Rationale |
+|------------|-------------------|-----------|
+| 4xx (client errors) | `WARN` | Expected but noteworthy — bad input, missing entity, access denied |
+| 5xx (server errors) | `ERROR` | Unexpected failure — always log with the full stack trace |
+
+### Where to enforce
+- **`GlobalExceptionHandler`** (`@RestControllerAdvice`) — every `@ExceptionHandler` method must
+  log the exception **before** returning the `ResponseEntity`.
+- **Security filters** (`JwtAuthenticationFilter`, `SecurityConfig` entry point) — log when
+  authentication/authorization fails and a 401/403 will be returned.
+- **Service catch blocks** — if a service catches an exception and converts it to a different
+  exception or a default value, the original cause must still be logged.
+
+### Anti-pattern (forbidden)
+```java
+// BAD — silent 404
+@ExceptionHandler(EntityNotFoundException.class)
+public ResponseEntity<?> handle(EntityNotFoundException ex) {
+    return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
+}
+```
+
+### Correct pattern
+```java
+// GOOD — logged before returning
+@ExceptionHandler(EntityNotFoundException.class)
+public ResponseEntity<?> handle(EntityNotFoundException ex) {
+    log.warn("Entity not found: {}", ex.getMessage());
+    return ResponseEntity.status(404).body(Map.of("message", ex.getMessage()));
+}
+```
+
 ## Build Commands
 - Full check: `cd backend && ./mvnw verify`
 - Run app: `cd backend && ./mvnw spring-boot:run`

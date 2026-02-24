@@ -74,7 +74,7 @@ erDiagram
 |--------|------|-------------|-------------|
 | id | UUID | PK, default gen_random_uuid() | Unique identifier |
 | user_id | UUID | FK → users(id), NOT NULL, UNIQUE | One-to-one with users |
-| grade | VARCHAR(20) | NOT NULL | School grade (e.g., "6th", "7th") |
+| grade | VARCHAR(20) | nullable | School grade (e.g., "7th", "8th") |
 | school | VARCHAR(255) | nullable | School name |
 | created_at | TIMESTAMP | NOT NULL, default now() | Record creation |
 
@@ -112,6 +112,8 @@ erDiagram
 | Version | File | Description |
 |---------|------|-------------|
 | V1 | `V1__initial_schema.sql` | Creates all 5 tables |
+| V2 | `V2__add_school_events_and_oauth_tokens.sql` | Added school_events table and OAuth token columns (now removed) |
+| V3 | `V3__remove_gmail_and_school_events.sql` | Drops school_events table and OAuth token columns from users |
 
 ## API Response Conventions
 
