@@ -8,9 +8,9 @@ describe("LoginPage", () => {
     render(
       <MemoryRouter>
         <LoginPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
-    expect(screen.getByText("Login with Google")).toBeInTheDocument();
+    expect(screen.getByText("login.google")).toBeInTheDocument();
   });
 });

@@ -29,7 +29,7 @@ describe("ProfilePage", () => {
     await waitFor(() => {
       expect(screen.getByDisplayValue("7th")).toBeInTheDocument();
       expect(
-        screen.getByDisplayValue("Lincoln Middle School")
+        screen.getByDisplayValue("Lincoln Middle School"),
       ).toBeInTheDocument();
     });
   });
@@ -54,15 +54,15 @@ describe("ProfilePage", () => {
       expect(screen.getByDisplayValue("7th")).toBeInTheDocument();
     });
 
-    const gradeInput = screen.getByLabelText("Grade");
-    const schoolInput = screen.getByLabelText("School");
+    const gradeInput = screen.getByLabelText("profile.grade");
+    const schoolInput = screen.getByLabelText("profile.school");
 
     await userEvent.clear(gradeInput);
     await userEvent.type(gradeInput, "8th");
     await userEvent.clear(schoolInput);
     await userEvent.type(schoolInput, "Washington Middle School");
 
-    await userEvent.click(screen.getByText("Save Profile"));
+    await userEvent.click(screen.getByText("profile.saveButton"));
 
     await waitFor(() => {
       expect(mockUpdateProfile).toHaveBeenCalledWith({
@@ -77,6 +77,6 @@ describe("ProfilePage", () => {
 
     render(<ProfilePage />);
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+    expect(screen.getByText("common.loading")).toBeInTheDocument();
   });
 });

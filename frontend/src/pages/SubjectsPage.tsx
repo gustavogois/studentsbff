@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import {
   getSubjects,
   createSubject,
@@ -8,6 +9,7 @@ import {
 import type { Subject } from "../types";
 
 export default function SubjectsPage() {
+  const { t } = useTranslation();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [loading, setLoading] = useState(true);
   const [newName, setNewName] = useState("");
@@ -50,19 +52,21 @@ export default function SubjectsPage() {
   };
 
   if (loading) {
-    return <div className="text-gray-500">Loading...</div>;
+    return <div className="text-gray-500">{t("common.loading")}</div>;
   }
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900">Subjects</h1>
+      <h1 className="text-2xl font-bold text-gray-900">
+        {t("subjects.title")}
+      </h1>
 
       <form onSubmit={handleCreate} className="mt-6 flex gap-3">
         <input
           type="text"
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
-          placeholder="New subject name"
+          placeholder={t("subjects.newPlaceholder")}
           className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
         />
         <button
@@ -70,13 +74,13 @@ export default function SubjectsPage() {
           disabled={submitting || !newName.trim()}
           className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
         >
-          Add Subject
+          {t("subjects.addButton")}
         </button>
       </form>
 
       {subjects.length === 0 ? (
         <div className="mt-6 rounded-lg border-2 border-dashed border-gray-300 p-8 text-center">
-          <p className="text-gray-500">No subjects yet. Add one above.</p>
+          <p className="text-gray-500">{t("subjects.emptyTitle")}</p>
         </div>
       ) : (
         <ul className="mt-6 divide-y divide-gray-200 rounded-lg border border-gray-200 bg-white">
@@ -95,7 +99,7 @@ export default function SubjectsPage() {
                 onClick={() => handleDelete(subject.id)}
                 className="text-sm text-red-600 hover:text-red-800"
               >
-                Delete
+                {t("common.delete")}
               </button>
             </li>
           ))}

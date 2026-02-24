@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function OAuthCallback() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -18,7 +20,7 @@ export default function OAuthCallback() {
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="text-lg text-gray-500">Authenticating...</div>
+      <div className="text-lg text-gray-500">{t("auth.authenticating")}</div>
     </div>
   );
 }

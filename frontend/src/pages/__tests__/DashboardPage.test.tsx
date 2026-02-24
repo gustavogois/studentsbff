@@ -37,11 +37,13 @@ describe("DashboardPage", () => {
     render(
       <MemoryRouter>
         <DashboardPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText("Hello, Test User!")).toBeInTheDocument();
+      expect(
+        screen.getByText("dashboard.hello", { exact: false }),
+      ).toBeInTheDocument();
     });
   });
 
@@ -64,7 +66,7 @@ describe("DashboardPage", () => {
     render(
       <MemoryRouter>
         <DashboardPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
@@ -79,11 +81,11 @@ describe("DashboardPage", () => {
     render(
       <MemoryRouter>
         <DashboardPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText("No subjects yet.")).toBeInTheDocument();
+      expect(screen.getByText("dashboard.emptyTitle")).toBeInTheDocument();
     });
   });
 });

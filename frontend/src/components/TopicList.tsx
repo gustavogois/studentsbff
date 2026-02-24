@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { Topic } from "../types";
 
 interface TopicListProps {
@@ -30,9 +31,11 @@ export default function TopicList({
   onDelete,
   onEdit,
 }: TopicListProps) {
+  const { t } = useTranslation();
+
   if (topics.length === 0) {
     return (
-      <p className="text-sm text-gray-500">No topics yet. Add one above.</p>
+      <p className="text-sm text-gray-500">{t("topics.emptyTitle")}</p>
     );
   }
 
@@ -49,13 +52,13 @@ export default function TopicList({
               onClick={() => onEdit(topic)}
               className="text-sm text-indigo-600 hover:text-indigo-800"
             >
-              Edit
+              {t("common.edit")}
             </button>
             <button
               onClick={() => onDelete(topic.id)}
               className="text-sm text-red-600 hover:text-red-800"
             >
-              Delete
+              {t("common.delete")}
             </button>
           </div>
         </li>

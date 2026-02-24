@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { Subject } from "../types";
 
 interface SubjectCardProps {
@@ -6,6 +7,8 @@ interface SubjectCardProps {
 }
 
 export default function SubjectCard({ subject }: SubjectCardProps) {
+  const { t } = useTranslation();
+
   return (
     <Link
       to={`/subjects/${subject.id}`}
@@ -13,7 +16,9 @@ export default function SubjectCard({ subject }: SubjectCardProps) {
     >
       <h3 className="text-lg font-semibold text-gray-900">{subject.name}</h3>
       <p className="mt-1 text-sm text-gray-500">
-        Created {new Date(subject.createdAt).toLocaleDateString()}
+        {t("common.created", {
+          date: new Date(subject.createdAt).toLocaleDateString(),
+        })}
       </p>
     </Link>
   );

@@ -1,7 +1,9 @@
 import { Outlet, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "../contexts/AuthContext";
 
 export default function Layout() {
+  const { t } = useTranslation();
   const { user, logout } = useAuth();
 
   return (
@@ -20,20 +22,19 @@ export default function Layout() {
                 to="/dashboard"
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
-                Dashboard
+                {t("nav.dashboard")}
               </Link>
               <Link
                 to="/subjects"
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
-                Subjects
+                {t("nav.subjects")}
               </Link>
-
               <Link
                 to="/profile"
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
-                Profile
+                {t("nav.profile")}
               </Link>
             </div>
             <div className="flex items-center gap-4">
@@ -49,7 +50,7 @@ export default function Layout() {
                 onClick={logout}
                 className="rounded-md bg-gray-100 px-3 py-1.5 text-sm text-gray-700 hover:bg-gray-200"
               >
-                Logout
+                {t("nav.logout")}
               </button>
             </div>
           </div>

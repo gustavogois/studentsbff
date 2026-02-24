@@ -33,7 +33,7 @@ describe("SubjectsPage", () => {
     render(
       <MemoryRouter>
         <SubjectsPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
@@ -58,17 +58,20 @@ describe("SubjectsPage", () => {
     render(
       <MemoryRouter>
         <SubjectsPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByPlaceholderText("New subject name")
+        screen.getByPlaceholderText("subjects.newPlaceholder"),
       ).toBeInTheDocument();
     });
 
-    await user.type(screen.getByPlaceholderText("New subject name"), "Math");
-    await user.click(screen.getByText("Add Subject"));
+    await user.type(
+      screen.getByPlaceholderText("subjects.newPlaceholder"),
+      "Math",
+    );
+    await user.click(screen.getByText("subjects.addButton"));
 
     await waitFor(() => {
       expect(mockedCreateSubject).toHaveBeenCalledWith({ name: "Math" });
@@ -89,14 +92,14 @@ describe("SubjectsPage", () => {
     render(
       <MemoryRouter>
         <SubjectsPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
       expect(screen.getByText("Math")).toBeInTheDocument();
     });
 
-    await user.click(screen.getByText("Delete"));
+    await user.click(screen.getByText("common.delete"));
 
     await waitFor(() => {
       expect(mockedDeleteSubject).toHaveBeenCalledWith("1");
@@ -109,13 +112,11 @@ describe("SubjectsPage", () => {
     render(
       <MemoryRouter>
         <SubjectsPage />
-      </MemoryRouter>
+      </MemoryRouter>,
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByText("No subjects yet. Add one above.")
-      ).toBeInTheDocument();
+      expect(screen.getByText("subjects.emptyTitle")).toBeInTheDocument();
     });
   });
 });

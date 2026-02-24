@@ -35,7 +35,7 @@ function renderWithRouter() {
         <Route path="/subjects/:id" element={<SubjectDetailPage />} />
         <Route path="/subjects" element={<div>Subjects List</div>} />
       </Routes>
-    </MemoryRouter>
+    </MemoryRouter>,
   );
 }
 
@@ -112,11 +112,16 @@ describe("SubjectDetailPage", () => {
     renderWithRouter();
 
     await waitFor(() => {
-      expect(screen.getByPlaceholderText("Topic name")).toBeInTheDocument();
+      expect(
+        screen.getByPlaceholderText("subjectDetail.topicPlaceholder"),
+      ).toBeInTheDocument();
     });
 
-    await user.type(screen.getByPlaceholderText("Topic name"), "Fractions");
-    await user.click(screen.getByText("Add Topic"));
+    await user.type(
+      screen.getByPlaceholderText("subjectDetail.topicPlaceholder"),
+      "Fractions",
+    );
+    await user.click(screen.getByText("subjectDetail.addTopic"));
 
     await waitFor(() => {
       expect(mockedCreateTopic).toHaveBeenCalledWith("sub-1", {
@@ -160,7 +165,7 @@ describe("SubjectDetailPage", () => {
       expect(screen.getByText("Fractions")).toBeInTheDocument();
     });
 
-    await user.click(screen.getByText("Delete"));
+    await user.click(screen.getByText("common.delete"));
 
     await waitFor(() => {
       expect(mockedDeleteTopic).toHaveBeenCalledWith("sub-1", "t-1");

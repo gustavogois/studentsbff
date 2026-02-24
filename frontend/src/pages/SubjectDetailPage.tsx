@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { getSubject, deleteSubject } from "../services/subjectService";
 import {
   getTopics,
@@ -11,6 +12,7 @@ import TopicList from "../components/TopicList";
 import type { Subject, Topic } from "../types";
 
 export default function SubjectDetailPage() {
+  const { t } = useTranslation();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [subject, setSubject] = useState<Subject | null>(null);
@@ -96,11 +98,13 @@ export default function SubjectDetailPage() {
   };
 
   if (loading) {
-    return <div className="text-gray-500">Loading...</div>;
+    return <div className="text-gray-500">{t("common.loading")}</div>;
   }
 
   if (!subject) {
-    return <div className="text-red-500">Subject not found.</div>;
+    return (
+      <div className="text-red-500">{t("subjectDetail.notFound")}</div>
+    );
   }
 
   return (
@@ -111,19 +115,21 @@ export default function SubjectDetailPage() {
           onClick={handleDeleteSubject}
           className="rounded-md bg-red-50 px-3 py-1.5 text-sm text-red-600 hover:bg-red-100"
         >
-          Delete Subject
+          {t("subjectDetail.deleteButton")}
         </button>
       </div>
 
       <div className="mt-8">
-        <h2 className="text-lg font-semibold text-gray-900">Topics</h2>
+        <h2 className="text-lg font-semibold text-gray-900">
+          {t("subjectDetail.topics")}
+        </h2>
 
         <form onSubmit={handleCreateOrUpdate} className="mt-4 flex gap-3">
           <input
             type="text"
             value={topicName}
             onChange={(e) => setTopicName(e.target.value)}
-            placeholder="Topic name"
+            placeholder={t("subjectDetail.topicPlaceholder")}
             className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           />
           <select
@@ -133,7 +139,7 @@ export default function SubjectDetailPage() {
           >
             {[1, 2, 3, 4, 5].map((d) => (
               <option key={d} value={d}>
-                Difficulty {d}
+                {t("subjectDetail.difficulty", { level: String(d) })}
               </option>
             ))}
           </select>
@@ -142,7 +148,7 @@ export default function SubjectDetailPage() {
             disabled={submitting || !topicName.trim()}
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 disabled:opacity-50"
           >
-            {editingTopic ? "Update" : "Add Topic"}
+            {editingTopic ? t("common.update") : t("subjectDetail.addTopic")}
           </button>
           {editingTopic && (
             <button
@@ -154,7 +160,7 @@ export default function SubjectDetailPage() {
               }}
               className="rounded-md border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
             >
-              Cancel
+              {t("common.cancel")}
             </button>
           )}
         </form>
