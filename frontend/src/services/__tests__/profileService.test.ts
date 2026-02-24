@@ -12,7 +12,7 @@ vi.mock("../client", () => ({
   },
 }));
 
-import { getProfile, updateProfile } from "../profileService";
+import { getProfile, updateProfile, getGrades } from "../profileService";
 
 describe("profileService", () => {
   beforeEach(() => {
@@ -37,21 +37,37 @@ describe("profileService", () => {
   it("should update profile", async () => {
     const profile = {
       id: "1",
-      grade: "8th",
+      grade: "GRADE_8",
       school: "Washington Middle School",
+      turma: "B",
       createdAt: "",
     };
     mockPut.mockResolvedValueOnce({ data: profile });
 
     const result = await updateProfile({
-      grade: "8th",
+      grade: "GRADE_8",
       school: "Washington Middle School",
+      turma: "B",
     });
 
     expect(mockPut).toHaveBeenCalledWith("/api/students/profile", {
-      grade: "8th",
+      grade: "GRADE_8",
       school: "Washington Middle School",
+      turma: "B",
     });
     expect(result).toEqual(profile);
+  });
+
+  it("should fetch grades", async () => {
+    const grades = [
+      { value: "GRADE_7", label: "7th Grade" },
+      { value: "GRADE_8", label: "8th Grade" },
+    ];
+    mockGet.mockResolvedValueOnce({ data: grades });
+
+    const result = await getGrades();
+
+    expect(mockGet).toHaveBeenCalledWith("/api/students/grades");
+    expect(result).toEqual(grades);
   });
 });

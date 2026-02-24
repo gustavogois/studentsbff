@@ -5,75 +5,131 @@ import ProfilePage from "../ProfilePage";
 
 const mockGetProfile = vi.fn();
 const mockUpdateProfile = vi.fn();
+const mockGetGrades = vi.fn();
 
 vi.mock("../../services/profileService", () => ({
   getProfile: () => mockGetProfile(),
   updateProfile: (data: unknown) => mockUpdateProfile(data),
+  getGrades: () => mockGetGrades(),
 }));
+
+const MOCK_GRADES = [
+  { value: "GRADE_7", label: "7th Grade" },
+  { value: "GRADE_8", label: "8th Grade" },
+  { value: "GRADE_9", label: "9th Grade" },
+];
 
 describe("ProfilePage", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
 
-  it("should display current profile", async () => {
+  it("should display current profile with grade selected", async () => {
     mockGetProfile.mockResolvedValueOnce({
       id: "1",
-      grade: "7th",
+      grade: "GRADE_7",
       school: "Lincoln Middle School",
+      turma: "A",
       createdAt: "",
     });
+    mockGetGrades.mockResolvedValueOnce(MOCK_GRADES);
 
     render(<ProfilePage />);
 
     await waitFor(() => {
-      expect(screen.getByDisplayValue("7th")).toBeInTheDocument();
+      const gradeSelect = screen.getByLabelText("profile.grade");
+      expect(gradeSelect).toHaveValue("GRADE_7");
       expect(
         screen.getByDisplayValue("Lincoln Middle School"),
       ).toBeInTheDocument();
+      expect(screen.getByDisplayValue("A")).toBeInTheDocument();
     });
   });
 
-  it("should update profile", async () => {
+  it("should render grade dropdown with options", async () => {
     mockGetProfile.mockResolvedValueOnce({
       id: "1",
-      grade: "7th",
-      school: "Lincoln Middle School",
+      grade: "",
+      school: "",
+      turma: "",
       createdAt: "",
     });
-    mockUpdateProfile.mockResolvedValueOnce({
-      id: "1",
-      grade: "8th",
-      school: "Washington Middle School",
-      createdAt: "",
-    });
+    mockGetGrades.mockResolvedValueOnce(MOCK_GRADES);
 
     render(<ProfilePage />);
 
     await waitFor(() => {
-      expect(screen.getByDisplayValue("7th")).toBeInTheDocument();
+      const gradeSelect = screen.getByLabelText("profile.grade");
+      expect(gradeSelect.tagName).toBe("SELECT");
     });
 
-    const gradeInput = screen.getByLabelText("profile.grade");
-    const schoolInput = screen.getByLabelText("profile.school");
+    // Check that grade options are rendered
+    expect(screen.getByText("grades.GRADE_7")).toBeInTheDocument();
+    expect(screen.getByText("grades.GRADE_8")).toBeInTheDocument();
+    expect(screen.getByText("grades.GRADE_9")).toBeInTheDocument();
+  });
 
-    await userEvent.clear(gradeInput);
-    await userEvent.type(gradeInput, "8th");
-    await userEvent.clear(schoolInput);
-    await userEvent.type(schoolInput, "Washington Middle School");
+  it("should render turma input", async () => {
+    mockGetProfile.mockResolvedValueOnce({
+      id: "1",
+      grade: "",
+      school: "",
+      turma: "",
+      createdAt: "",
+    });
+    mockGetGrades.mockResolvedValueOnce(MOCK_GRADES);
 
-    await userEvent.click(screen.getByText("profile.saveButton"));
+    render(<ProfilePage />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("profile.turma")).toBeInTheDocument();
+    });
+  });
+
+  it("should submit with grade, turma, and school", async () => {
+    mockGetProfile.mockResolvedValueOnce({
+      id: "1",
+      grade: "",
+      school: "",
+      turma: "",
+      createdAt: "",
+    });
+    mockGetGrades.mockResolvedValueOnce(MOCK_GRADES);
+    mockUpdateProfile.mockResolvedValueOnce({
+      id: "1",
+      grade: "GRADE_8",
+      school: "Washington Middle School",
+      turma: "B",
+      createdAt: "",
+    });
+
+    const user = userEvent.setup();
+    render(<ProfilePage />);
+
+    await waitFor(() => {
+      expect(screen.getByLabelText("profile.grade")).toBeInTheDocument();
+    });
+
+    await user.selectOptions(screen.getByLabelText("profile.grade"), "GRADE_8");
+    await user.type(screen.getByLabelText("profile.turma"), "B");
+    await user.type(
+      screen.getByLabelText("profile.school"),
+      "Washington Middle School",
+    );
+    await user.click(screen.getByText("profile.saveButton"));
 
     await waitFor(() => {
       expect(mockUpdateProfile).toHaveBeenCalledWith({
-        grade: "8th",
+        grade: "GRADE_8",
         school: "Washington Middle School",
+        turma: "B",
       });
     });
   });
 
   it("should show loading state", () => {
     mockGetProfile.mockReturnValue(new Promise(() => {}));
+    mockGetGrades.mockReturnValue(new Promise(() => {}));
 
     render(<ProfilePage />);
 
@@ -85,8 +141,10 @@ describe("ProfilePage", () => {
       id: "1",
       grade: "",
       school: "",
+      turma: "",
       createdAt: "",
     });
+    mockGetGrades.mockResolvedValueOnce([]);
 
     render(<ProfilePage />);
 
@@ -102,8 +160,10 @@ describe("ProfilePage", () => {
       id: "1",
       grade: "",
       school: "",
+      turma: "",
       createdAt: "",
     });
+    mockGetGrades.mockResolvedValueOnce([]);
 
     render(<ProfilePage />);
 
@@ -112,8 +172,5 @@ describe("ProfilePage", () => {
     });
 
     await userEvent.click(screen.getByText("Português (Brasil)"));
-
-    // The mock i18n.changeLanguage should have been called
-    // (our mock in setup.ts provides a vi.fn() for changeLanguage)
   });
 });

@@ -34,10 +34,17 @@ export interface StudentProfile {
   id: string;
   grade: string | null;
   school: string | null;
+  turma: string | null;
   createdAt: string;
 }
 
 export interface StudentProfileRequest {
-  grade: string;
+  grade: string | null;
   school: string;
+  turma: string;
+}
+
+export interface GradeOption {
+  value: string;
+  label: string;
 }

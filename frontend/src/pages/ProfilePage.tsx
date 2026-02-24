@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getProfile, updateProfile } from "../services/profileService";
-import type { StudentProfile } from "../types";
+import {
+  getGrades,
+  getProfile,
+  updateProfile,
+} from "../services/profileService";
+import type { GradeOption, StudentProfile } from "../types";
 
 const LANGUAGES = [
   { code: "en", label: "English" },
@@ -16,14 +20,18 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false);
   const [grade, setGrade] = useState("");
   const [school, setSchool] = useState("");
+  const [turma, setTurma] = useState("");
+  const [grades, setGrades] = useState<GradeOption[]>([]);
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    getProfile()
-      .then((data) => {
-        setProfile(data);
-        setGrade(data.grade || "");
-        setSchool(data.school || "");
+    Promise.all([getProfile(), getGrades()])
+      .then(([profileData, gradesData]) => {
+        setProfile(profileData);
+        setGrade(profileData.grade || "");
+        setSchool(profileData.school || "");
+        setTurma(profileData.turma || "");
+        setGrades(gradesData);
       })
       .catch(console.error)
       .finally(() => setLoading(false));
@@ -34,7 +42,11 @@ export default function ProfilePage() {
     setSaving(true);
     setMessage("");
     try {
-      const updated = await updateProfile({ grade, school });
+      const updated = await updateProfile({
+        grade: grade || null,
+        school,
+        turma,
+      });
       setProfile(updated);
       setMessage(t("profile.updateSuccess"));
     } catch (err) {
@@ -63,12 +75,34 @@ export default function ProfilePage() {
           >
             {t("profile.grade")}
           </label>
-          <input
+          <select
             id="grade"
-            type="text"
             value={grade}
             onChange={(e) => setGrade(e.target.value)}
-            placeholder={t("profile.gradePlaceholder")}
+            className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          >
+            <option value="">{t("profile.gradePlaceholder")}</option>
+            {grades.map((g) => (
+              <option key={g.value} value={g.value}>
+                {t(`grades.${g.value}`, g.label)}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor="turma"
+            className="block text-sm font-medium text-gray-700"
+          >
+            {t("profile.turma")}
+          </label>
+          <input
+            id="turma"
+            type="text"
+            value={turma}
+            onChange={(e) => setTurma(e.target.value)}
+            placeholder={t("profile.turmaPlaceholder")}
             className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
           />
         </div>
