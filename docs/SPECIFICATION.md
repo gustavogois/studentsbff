@@ -43,6 +43,8 @@ StudentsBFF is a study companion platform for middle school students (grades 6-9
 | B17 | Gamification (points, streaks, achievements) | Could | — | Backlog |
 | B18 | PWA offline mode | Could | — | Backlog |
 | B19 | Photo/OCR data capture (agenda, notebook) | Could | — | Backlog |
+| B21 | Internationalisation (i18n): EN, pt-BR, pt-PT with language switcher | High | 003 | Planned |
+| B22 | Grade as enum dropdown (7-12) + new "turma" (class section) field | High | 003 | Planned |
 
 ---
 
