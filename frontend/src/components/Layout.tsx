@@ -31,6 +31,12 @@ export default function Layout() {
                 {t("nav.subjects")}
               </Link>
               <Link
+                to="/events"
+                className="text-sm text-gray-600 hover:text-gray-900"
+              >
+                {t("nav.events")}
+              </Link>
+              <Link
                 to="/profile"
                 className="text-sm text-gray-600 hover:text-gray-900"
               >

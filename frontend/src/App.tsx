@@ -7,6 +7,7 @@ import OAuthCallback from "./pages/OAuthCallback";
 import DashboardPage from "./pages/DashboardPage";
 import SubjectsPage from "./pages/SubjectsPage";
 import SubjectDetailPage from "./pages/SubjectDetailPage";
+import SchoolEventsPage from "./pages/SchoolEventsPage";
 import ProfilePage from "./pages/ProfilePage";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/subjects" element={<SubjectsPage />} />
               <Route path="/subjects/:id" element={<SubjectDetailPage />} />
-
+              <Route path="/events" element={<SchoolEventsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Route>

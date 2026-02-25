@@ -18,7 +18,6 @@ vi.mock("../client", () => ({
 
 import {
   getSchoolEvents,
-  getSchoolEvent,
   createSchoolEvent,
   updateSchoolEvent,
   deleteSchoolEvent,
