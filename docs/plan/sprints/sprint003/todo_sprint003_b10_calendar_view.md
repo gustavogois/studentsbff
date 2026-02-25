@@ -1,7 +1,7 @@
 # B10 — Calendar View: Implementation Plan
 
 **Sprint:** 003
-**Status:** Not Started
+**Status:** Done
 **Backlog Item:** B10
 **Goal:** Display school events on a monthly calendar grid so students can visualize their exams, assignments, and deadlines at a glance.
 
@@ -18,15 +18,15 @@ Depends on B11 (manual data entry) — the calendar displays events from `GET /a
 ### B10.1 — Calendar grid component
 
 **Tests (write first):**
-- [ ] `Calendar.test.tsx#shouldRenderCurrentMonthGrid` — verify correct number of days rendered for current month
-- [ ] `Calendar.test.tsx#shouldHighlightToday` — verify today's date has distinct styling
-- [ ] `Calendar.test.tsx#shouldNavigateToNextMonth` — click next arrow, verify month label changes
-- [ ] `Calendar.test.tsx#shouldNavigateToPreviousMonth` — click prev arrow, verify month label changes
-- [ ] `Calendar.test.tsx#shouldRenderEventsOnCorrectDays` — pass events, verify they appear on the right date cells
-- [ ] `Calendar.test.tsx#shouldCallOnEventClickWhenEventClicked` — click an event, verify callback fired with event data
+- [x] `Calendar.test.tsx#shouldRenderCurrentMonthGrid` — verify correct number of days rendered for current month
+- [x] `Calendar.test.tsx#shouldHighlightToday` — verify today's date has distinct styling
+- [x] `Calendar.test.tsx#shouldNavigateToNextMonth` — click next arrow, verify month label changes
+- [x] `Calendar.test.tsx#shouldNavigateToPreviousMonth` — click prev arrow, verify month label changes
+- [x] `Calendar.test.tsx#shouldRenderEventsOnCorrectDays` — pass events, verify they appear on the right date cells
+- [x] `Calendar.test.tsx#shouldCallOnEventClickWhenEventClicked` — click an event, verify callback fired with event data
 
 **Implementation:**
-- [ ] Create `components/Calendar.tsx`:
+- [x] Create `components/Calendar.tsx`:
   - Props: `events: SchoolEvent[]`, `onEventClick?: (event: SchoolEvent) => void`, `onMonthChange?: (year: number, month: number) => void`
   - Monthly grid: 7 columns (Sun–Sat or Mon–Sun), rows for weeks
   - Month/year header with prev/next navigation arrows
@@ -42,19 +42,19 @@ Depends on B11 (manual data entry) — the calendar displays events from `GET /a
 ### B10.2 — Calendar page integration
 
 **Tests (write first):**
-- [ ] `CalendarPage.test.tsx#shouldFetchEventsForCurrentMonth` — verify API called with current month range
-- [ ] `CalendarPage.test.tsx#shouldRefetchOnMonthChange` — navigate month, verify new API call
-- [ ] `CalendarPage.test.tsx#shouldShowLoadingState` — verify loading indicator while fetching
-- [ ] `CalendarPage.test.tsx#shouldNavigateToEventOnClick` — click event, verify navigation or detail shown
+- [x] `CalendarPage.test.tsx#shouldFetchEventsForCurrentMonth` — verify API called with current month range
+- [x] `CalendarPage.test.tsx#shouldRefetchOnMonthChange` — navigate month, verify new API call
+- [x] `CalendarPage.test.tsx#shouldShowLoadingState` — verify loading indicator while fetching
+- [x] `CalendarPage.test.tsx#shouldNavigateToEventOnClick` — click event, verify navigation or detail shown
 
 **Implementation:**
-- [ ] Create `pages/CalendarPage.tsx`:
+- [x] Create `pages/CalendarPage.tsx`:
   - Fetches events for displayed month via `getSchoolEvents(from, to)`
   - Passes events to `<Calendar>` component
   - On month change: refetch events for new month range
   - On event click: navigate to events page or show event detail
-- [ ] Update `App.tsx` — add `/calendar` route
-- [ ] Update `Layout.tsx` — add "Calendar" nav link
+- [x] Update `App.tsx` — add `/calendar` route
+- [x] Update `Layout.tsx` — add "Calendar" nav link
 
 **Commit:** `feat(sprint003): B10.2 — add CalendarPage with month navigation and event display`
 
@@ -84,11 +84,11 @@ Depends on B11 (manual data entry) — the calendar displays events from `GET /a
 
 ## Definition of Done
 
-- [ ] Calendar renders a correct monthly grid with day numbers
-- [ ] Today is visually highlighted
-- [ ] Month navigation (prev/next) works
-- [ ] Events appear on their correct dates
-- [ ] Events are color-coded by type
-- [ ] Clicking an event triggers navigation
-- [ ] `npm run build` succeeds
-- [ ] `npm test` passes
+- [x] Calendar renders a correct monthly grid with day numbers
+- [x] Today is visually highlighted
+- [x] Month navigation (prev/next) works
+- [x] Events appear on their correct dates
+- [x] Events are color-coded by type
+- [x] Clicking an event triggers navigation
+- [x] `npm run build` succeeds
+- [x] `npm test` passes

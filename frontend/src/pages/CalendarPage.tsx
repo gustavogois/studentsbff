@@ -23,17 +23,14 @@ export default function CalendarPage() {
   const [events, setEvents] = useState<SchoolEvent[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchEvents = useCallback(
-    (y: number, m: number) => {
-      setLoading(true);
-      const { from, to } = formatMonthRange(y, m);
-      getSchoolEvents(from, to)
-        .then(setEvents)
-        .catch(console.error)
-        .finally(() => setLoading(false));
-    },
-    [],
-  );
+  const fetchEvents = useCallback((y: number, m: number) => {
+    setLoading(true);
+    const { from, to } = formatMonthRange(y, m);
+    getSchoolEvents(from, to)
+      .then(setEvents)
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   useEffect(() => {
     fetchEvents(year, month);
@@ -48,22 +45,25 @@ export default function CalendarPage() {
     navigate("/events");
   };
 
-  if (loading) {
-    return <div className="text-gray-500">{t("common.loading")}</div>;
-  }
-
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold text-gray-900">
         {t("calendar.title")}
       </h1>
-      <Calendar
-        year={year}
-        month={month}
-        events={events}
-        onMonthChange={handleMonthChange}
-        onEventClick={handleEventClick}
-      />
+      <div className="relative">
+        {loading && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-white/60">
+            <span className="text-gray-500">{t("common.loading")}</span>
+          </div>
+        )}
+        <Calendar
+          year={year}
+          month={month}
+          events={events}
+          onMonthChange={handleMonthChange}
+          onEventClick={handleEventClick}
+        />
+      </div>
     </div>
   );
 }
