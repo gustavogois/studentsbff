@@ -48,3 +48,25 @@ export interface GradeOption {
   value: string;
   label: string;
 }
+
+export type EventType = "EXAM" | "ASSIGNMENT" | "DEADLINE";
+
+export interface SchoolEvent {
+  id: string;
+  title: string;
+  eventType: EventType;
+  eventDate: string;
+  subjectId: string | null;
+  subjectName: string | null;
+  description: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface SchoolEventRequest {
+  title: string;
+  eventType: EventType;
+  eventDate: string;
+  subjectId?: string | null;
+  description?: string;
+}
