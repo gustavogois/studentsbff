@@ -8,6 +8,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SubjectsPage from "./pages/SubjectsPage";
 import SubjectDetailPage from "./pages/SubjectDetailPage";
 import SchoolEventsPage from "./pages/SchoolEventsPage";
+import CalendarPage from "./pages/CalendarPage";
 import ProfilePage from "./pages/ProfilePage";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="/subjects" element={<SubjectsPage />} />
               <Route path="/subjects/:id" element={<SubjectDetailPage />} />
               <Route path="/events" element={<SchoolEventsPage />} />
+              <Route path="/calendar" element={<CalendarPage />} />
               <Route path="/profile" element={<ProfilePage />} />
             </Route>
           </Route>
