@@ -2,6 +2,41 @@
 
 Current sprint tasks are tracked here. Updated after each task completion.
 
+## Sprint 003 — Study Calendar Foundations
+
+### B21 — Internationalization (i18n)
+- [x] B21.1 — i18n infrastructure with 3 locales (EN, pt-BR, pt-PT)
+- [x] B21.2 — Extract all hardcoded strings to i18n translation keys
+- [x] B21.3 — Language switcher on Profile page
+
+### B22 — Grade Enum + Turma
+- [x] B22.1 — Grade enum, turma field, grades endpoint (backend)
+- [x] B22.2 — Grade dropdown and turma input on Profile page (frontend)
+
+### B23 — Edit Subject Name
+- [x] B23.1 — Inline subject rename on SubjectsPage
+
+### B24 — Confirm Dialogs
+- [x] B24.1 — Reusable ConfirmDialog component
+- [x] B24.2 — Replace window.confirm with ConfirmDialog in all pages
+
+### B25 — Empty States
+- [x] B25.1 — Reusable EmptyState component
+- [x] B25.2 — Replace plain text empty states in existing pages
+
+### B11 — Manual Data Entry (School Events)
+- [x] B11.1 — school_events migration V5, entity, repository
+- [x] B11.2 — School event service, DTOs, mapper
+- [x] B11.3 — School event REST controller
+- [x] B11.4 — Frontend types and service
+- [x] B11.5 — School events page with create, list, and delete
+
+### B10 — Calendar View
+- [x] B10.1 — Calendar grid component
+- [x] B10.2 — CalendarPage with month navigation and event display
+
+---
+
 ## Sprint 002 — School Context
 
 ### P1 — Student Profile (B08)

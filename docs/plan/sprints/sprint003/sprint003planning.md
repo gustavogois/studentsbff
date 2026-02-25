@@ -119,17 +119,17 @@ See `todo_sprint003_edit_subject.md` for full plan.
 
 ## Definition of Done
 
-- [ ] Student can create, view, edit, and delete school events (exams, assignments, deadlines)
-- [ ] Events have: title, type, date, optional subject link, description
-- [ ] Calendar view displays events on their dates
-- [ ] All UI strings use i18n translation keys (EN, pt-BR, pt-PT)
-- [ ] Language switcher works and persists choice
-- [ ] Grade field is a constrained dropdown (7th–12th), turma field added
-- [ ] Subject name can be edited from the UI
-- [ ] All delete actions show a styled confirmation dialog
-- [ ] Empty states have icons and call-to-action buttons
-- [ ] All backend tests pass (`./mvnw verify`)
-- [ ] Frontend builds and tests pass (`npm run build && npm test`)
+- [x] Student can create, view, edit, and delete school events (exams, assignments, deadlines)
+- [x] Events have: title, type, date, optional subject link, description
+- [x] Calendar view displays events on their dates
+- [x] All UI strings use i18n translation keys (EN, pt-BR, pt-PT)
+- [x] Language switcher works and persists choice
+- [x] Grade field is a constrained dropdown (7th–12th), turma field added
+- [x] Subject name can be edited from the UI
+- [x] All delete actions show a styled confirmation dialog
+- [x] Empty states have icons and call-to-action buttons
+- [x] All backend tests pass (`./mvnw verify`)
+- [x] Frontend builds and tests pass (`npm run build && npm test`)
 
 ## Decisions Made During Refinement
 
